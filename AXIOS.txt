@@ -1,0 +1,23 @@
+<script>
+
+var axios = require ('axios') //Cargamos la libreria en la variable axios
+// OTRO CODIGO
+
+mounted:() => {
+	console.log('Se ha ejecutado mounted')
+	axios
+		.get('http://localhost:3000/data')
+		.then (function(respose) {
+			//handle success
+			console.log(response)
+		})
+		.catch(function(error){
+			//handle error
+			console.log(error)
+		})
+		.then(function() {
+			//always executed
+		})
+}
+
+</script>
