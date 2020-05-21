@@ -1,0 +1,113 @@
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!DOCTYPE html
+<html>
+    <head>
+        <link rel="stylesheet" href="./CompletarDatos.css" type="text/css">
+      </head>
+    <body>
+        <header class="header">
+            <div class="cabecera">
+                <img class="centrar" src="images/LogoV1.png" width="660" height="140";>
+            </div>
+            <div class="mainMenu">
+                <br>
+                <style>
+                    ul {
+                      list-style-type: none;
+                      margin: 0;
+                      padding: 0;
+                      overflow: hidden;
+                      background-color: rgb(9, 88, 58);
+                    }
+                    li {
+                      float: left;
+                    }
+                    li a {
+                      display: inline-block;
+                      color: white;
+                      text-align: center;
+                      padding: 14px 16px;
+                      text-decoration: none;
+                    }
+                    li a:hover {
+                      background-color: rgb(9, 88, 58);
+                    }
+                    </style>
+                    <ul>
+                      <li><a href="./CompletarDatos.html" class="active"> INICIO </a></li>
+                      <li><a href="./CompletarDatos.html"> BUSCAR LIBROS </a></li>
+                      <li><a href="./CompletarDatos.html"> LEÍDOS Y FAVORITOS </a></li>
+                      <li><a href="./CompletarDatos.html"> LEER MÁS TARDE </a></li>
+                      <li><a href="./CompletarDatos.html"> BIBLIOTECA </a></li>
+                      <li><a href="./CompletarDatos.html"> MI CUENTA </a></li>
+                    </ul>
+            </div>
+        </header>
+
+        <div class="tituloPagina">
+            <h2 style="text-align:center">COMPLETE LOS DATOS DE SU CUENTA</h2>
+        </div>
+        <div class="divisionIzquierda">
+            <div class="subdivisionArriba">
+                <br>
+                <h2>DATOS PERSONALES</h2>
+            </div>
+            <div class="subdivisionMedio">
+                <div class="Pre">
+                    <label for="fname">Fecha de nacimiento:</label><br><br>
+                    <br>
+                    <label for="fname">DNI/NIE/Pasaporte:</label><br><br>
+                    <label for="lname">Ciudad o codigo postal:</label><br><br>
+                    <br>
+                    <label for="lname">Confirmar email:</label><br>
+                </div>
+                <div class="Res">
+                    <input type="text" id="lname" name="lname" value=""><br>
+                    <br><br>
+                    <div id="Texto" v-cloak>
+                    <input type="text" v-model="elnombre"/><br>
+                    </div>
+                    <br><br>
+                    <input type="text" id="lname" name="lname" value=""><br>
+                    <br><br>
+                    <input type="text" id="lname" name="lname" value=""><br>
+                    <p style="font-size: 4;"><br></p>
+                </div>
+            </div>
+            <div class="subdivisionAbajo">
+                <input type="submit" value="GUARDAR CAMBIOS" style="background-color: rgb(107, 216, 57);" style="font-size: 22;">
+            </div>
+        </div>
+        <div class="divisionDerecha">
+            <div class="subdivisionArriba">
+                <br>
+                <h2>DATOS DEL PERFIL</h2>
+            </div>
+            <div class="subdivisionMedio">
+                <div class="Pre">
+                    <label for="fname">Nombre de usuario:</label><br><br><br><br><br>
+                    <label for="lname">Biografía:</label><br><br><br><br><br>
+                    <label for="lname">Elegir imagen:</label><br>
+                </div>
+                <div class="Res">
+                    <input type="text" id="lname" name="lname" value=""><br><br><br>
+                    <textarea id="lname" rows="8" cols="30" name="lname" value=""></textarea><br><br>
+                    <div class="icono">
+                        <p><input type="file" name="botondeenvio" src="images/icono_opt.png"><br>
+                    </div>
+                    <p style="font-size: 4;"><br></p>
+                </div>
+            </div>
+            <div class="subdivisionAbajo">
+                <input type="submit" value="SOLICITAR CARNET" style="background-color: rgb(107, 216, 57);" style="font-size: 22;">
+            </div>
+        </div>
+
+
+            <footer class="Pie">
+                <h2 style="text-align:right">BookedBoks by  ~ g1.2 ~</h2>
+            </footer>
+        </div>
+    </body>
+    
+</html>
