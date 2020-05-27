@@ -1,18 +1,29 @@
 var express = require ('express')
 var app = express()
 var bp = require ('body-parser')
-var cors = require ('cors')
 
-app.use(bp.urlencoded({ extended: false}))
+//Database
+const db = require('./config/database')
+//Establecemos conexión
+
+
+app.use(bp.urlencoded({ extended: true}))
 app.use(bp.json())
-app.use(cors)
 
-app.get('/', function(req,res) {
+
+app.get('/', function (req, res) {
+    console.log('Petición a / recibida');
+    res.send('Practica final');    
+});
+
+app.get('/index', function(req,res) {
+    console.log('Petición a /index recibida');
     res.send('Hola mundo');
 });
 
 app.get('/data',function(req, res) {
-    res.send();
+    console.log('Petición a /data recibida');
+    res.send(); 
 });
 
 app.listen(3000, function() {

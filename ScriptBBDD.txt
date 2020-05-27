@@ -1,0 +1,111 @@
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Versión del servidor:         8.0.19 - MySQL Community Server - GPL
+-- SO del servidor:              Win64
+-- HeidiSQL Versión:             10.3.0.5771
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+
+-- Volcando estructura de base de datos para aw_pfinal
+CREATE DATABASE IF NOT EXISTS `aw_pfinal` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `aw_pfinal`;
+
+-- Volcando estructura para tabla aw_pfinal.favorito
+CREATE TABLE IF NOT EXISTS `favorito` (
+  `idUsuario` int NOT NULL,
+  `idLibro` int NOT NULL,
+  `fecha` date NOT NULL,
+  `comentario` varchar(500) DEFAULT NULL,
+  UNIQUE KEY `idUsuario_idLibro` (`idUsuario`,`idLibro`),
+  KEY `FK_favorito_libros` (`idLibro`),
+  CONSTRAINT `FK_favorito_libros` FOREIGN KEY (`idLibro`) REFERENCES `libros` (`idLibro`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_favorito_usuarios` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`IdUsuario`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- La exportación de datos fue deseleccionada.
+
+-- Volcando estructura para tabla aw_pfinal.leidos
+CREATE TABLE IF NOT EXISTS `leidos` (
+  `idUsuario` int NOT NULL,
+  `idLibro` int NOT NULL,
+  `fecha` date NOT NULL,
+  `comentario` varchar(500) DEFAULT NULL,
+  `nota` int NOT NULL COMMENT '0 - 10',
+  UNIQUE KEY `idUsuario_idLibro` (`idUsuario`,`idLibro`),
+  KEY `FK_leidos_libros` (`idLibro`),
+  CONSTRAINT `FK_leidos_libros` FOREIGN KEY (`idLibro`) REFERENCES `libros` (`idLibro`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_leidos_usuarios` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`IdUsuario`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- La exportación de datos fue deseleccionada.
+
+-- Volcando estructura para tabla aw_pfinal.libros
+CREATE TABLE IF NOT EXISTS `libros` (
+  `idLibro` int NOT NULL AUTO_INCREMENT,
+  `Titulo` varchar(50) NOT NULL DEFAULT '',
+  `Autor` varchar(50) NOT NULL DEFAULT '',
+  `unidades` int NOT NULL DEFAULT '0',
+  `Resumen` varchar(500) DEFAULT '',
+  `Genero` varchar(50) DEFAULT NULL,
+  `Idioma` varchar(50) NOT NULL DEFAULT '',
+  `LinkDescarga` varchar(100) NOT NULL DEFAULT '',
+  `LinkImagen` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`idLibro`),
+  UNIQUE KEY `Titulo_Autor_Idioma` (`Titulo`,`Autor`,`Idioma`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- La exportación de datos fue deseleccionada.
+
+-- Volcando estructura para tabla aw_pfinal.lista
+CREATE TABLE IF NOT EXISTS `lista` (
+  `idUsuario` int NOT NULL,
+  `idLibro` int NOT NULL,
+  `fecha` date NOT NULL,
+  `comentario` varchar(500) DEFAULT NULL,
+  UNIQUE KEY `idUsuario_idLibro` (`idUsuario`,`idLibro`),
+  KEY `FK_lista_libros` (`idLibro`),
+  CONSTRAINT `FK_lista_libros` FOREIGN KEY (`idLibro`) REFERENCES `libros` (`idLibro`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_lista_usuarios` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`IdUsuario`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- La exportación de datos fue deseleccionada.
+
+-- Volcando estructura para tabla aw_pfinal.reservas
+CREATE TABLE IF NOT EXISTS `reservas` (
+  `idReserva` int NOT NULL,
+  `idUsuario` int NOT NULL,
+  `idLibro` int NOT NULL,
+  `fecha` date NOT NULL,
+  `fechaRecogida` date DEFAULT NULL,
+  `estado` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idReserva`),
+  KEY `FK__usuarios` (`idUsuario`),
+  KEY `FK__libros` (`idLibro`),
+  CONSTRAINT `FK__libros` FOREIGN KEY (`idLibro`) REFERENCES `libros` (`idLibro`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK__usuarios` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`IdUsuario`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- La exportación de datos fue deseleccionada.
+
+-- Volcando estructura para tabla aw_pfinal.usuarios
+CREATE TABLE IF NOT EXISTS `usuarios` (
+  `IdUsuario` int NOT NULL AUTO_INCREMENT,
+  `NombreUsuario` varchar(50) NOT NULL,
+  `Email` varchar(50) NOT NULL,
+  `Contrasena` varchar(50) NOT NULL,
+  PRIMARY KEY (`IdUsuario`),
+  UNIQUE KEY `NombreUsuario` (`NombreUsuario`),
+  UNIQUE KEY `Email` (`Email`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- La exportación de datos fue deseleccionada.
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
