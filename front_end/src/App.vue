@@ -40,13 +40,13 @@
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
+import Navegacion from "./components/Navegacion";
 
 export default {
   name: "App",
 
   components: {
-    HelloWorld
+    Navegacion
   },
 
   data: () => ({
