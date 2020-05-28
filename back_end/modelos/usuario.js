@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const { Sequelize, Op, Model, DataTypes } = require("sequelize");
 const db = require('../config/database');
 
 const Usuario = db.define('usuario', {
@@ -10,25 +10,47 @@ const Usuario = db.define('usuario', {
 
     },
     nombreUsuario: {
-        type: DataTypes.STRING,
-        unique: true,
-        validate: {len: [5, 50]},
+        type: DataTypes.STRING,  
+        unique: true,      
+        validate: {
+            len: {
+                args: [5, 50],
+                msg: 'El nombre debe tener entre 5 y 50 carácteres'        
+            }
+        },
         allowNull: false
     },
 
     email: {
         type: DataTypes.STRING,
         unique: true,
-        validate: {isEmail: ture},
+        validate: {
+            isEmail: {
+                args: true,
+                msg: 'El email debete tener un formato válido ( xxx@xxx.xxx)'
+            }, 
+            len: {
+                args: [5, 50],
+                msg:'Email requerido'
+            }
+        },
         allowNull: false
     },
 
     contrasena: {
         type: DataTypes.STRING,
-        validate: {len: [5, 50]},
+        validate: {
+            len: {
+                args: [5, 50],
+                msg: 'La contraseña debe tener entre 5 y 10 carácteres'
+            },
+        },
         allowNull: false
     },
 
 }, {
-    tableName: 'usuarios'
+    tableName: 'usuarios',
+    
 });
+
+module.exports = Usuario;

@@ -1,30 +1,40 @@
-const Sequelize = require('sequelize');
+const { Sequelize, Op, Model, DataTypes } = require("sequelize");
 const db = require('../config/database');
+const Usuario = require('./usuario')
+const Libro = require('./libro')
 
 const Leido = db.define('leido', {
+
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false
+    },
+
     idUsuario: {
         type: DataTypes.INTEGER,
         unique: 'compositeIndex',
         allowNull: false,
         references: {
             model: Usuario,
-            key: idUsuario
+            key: 'idUsuario'
         }
 
     },
     idLibro: {
-        type: DataTypes.INT,
+        type: DataTypes.INTEGER,
         unique: 'compositeIndex',
         allowNull: false,
         references: {
             model: Libro,
-            key: idLibro
+            key:'idLibro'
         }
     },
 
     fecha: {
         type: DataTypes.DATEONLY,
-        defaultValue: DataTypes.DATEONLY,
+        defaultValue: Sequelize.DATEONLY,
         allowNull: false
     },
 
@@ -43,4 +53,5 @@ const Leido = db.define('leido', {
     tableName: 'leidos'
 });
 
+module.exports = Leido;
 

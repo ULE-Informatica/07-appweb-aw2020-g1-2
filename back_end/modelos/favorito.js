@@ -1,24 +1,34 @@
-const Sequelize = require('sequelize');
+const { Sequelize, Op, Model, DataTypes } = require("sequelize");
 const db = require('../config/database');
+const Usuario = require('./usuario')
+const Libro = require('./libro')
 
 const Favorito = db.define('favorito', {
+
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false
+    },
+
     idUsuario: {
         type: DataTypes.INTEGER,
         unique: 'compositeIndex',
         allowNull: false,
         references: {
             model: Usuario,
-            key: idUsuario
+            key: 'idUsuario'
         }
 
     },
     idLibro: {
-        type: DataTypes.INT,
+        type: DataTypes.INTEGER,
         unique: 'compositeIndex',
         allowNull: false,
         references: {
             model: Libro,
-            key: idLibro
+            key: 'idLibro'
         }
     },
 
@@ -38,3 +48,5 @@ const Favorito = db.define('favorito', {
 }, {
     tableName: 'favoritos'
 });
+
+module.exports = Favorito;

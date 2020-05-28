@@ -1,8 +1,14 @@
-const Sequelize = require('sequelize');
+const { Sequelize, Op, Model, DataTypes } = require("sequelize");
 
 //Creamos conexión a la base de datos
-module.exports = new Sequelize('aw_pfinal', 'root', 'david98', {
+const sequelize = new Sequelize('aw_pfinal', 'root', 'david98', {
     host: 'localhost',
-    dialect: 'mysql'
+    dialect: 'mysql',
+    define: {
+        timestamps: false
+    }
 });
 
+
+//
+module.exports = sequelize
