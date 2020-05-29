@@ -154,6 +154,48 @@ app.get('/data/usuarios/:id/lista', function (req, res) {
     })
 
 })
+//Devuelve todos los libros que el el usuarioa especificado tiene en su lista de favoritos
+app.get('/data/usuarios/:id/favoritos', function (req, res) {
+    var id = req.params.id;
+
+    console.log('Petición GET a /data/usuarios:is => Devolviendo la lista de libros favoritos del usuario ' + id);
+    
+    Favorito.findAll({
+        where: {
+            idUsuario: id
+        },
+        include: [Libro]
+        
+    }).then((lista) => {
+        if (lista) {
+            res.json(lista);
+        } else {
+            res.status(404).send();
+        }
+    })
+
+})
+//Devuelve todos los libros que el el usuarioa especificado tiene en su lista de leidos
+app.get('/data/usuarios/:id/leidos', function (req, res) {
+    var id = req.params.id;
+
+    console.log('Petición GET a /data/usuarios:is => Devolviendo la lista de libros leidos del usuario ' + id);
+    
+    Leido.findAll({
+        where: {
+            idUsuario: id
+        },
+        include: [Libro]
+        
+    }).then((lista) => {
+        if (lista) {
+            res.json(lista);
+        } else {
+            res.status(404).send();
+        }
+    })
+
+})
 //FIN LOGICA USUARIOS
 //LOGICA LIBROS
 //NUEVO LIBRO 
@@ -249,15 +291,196 @@ app.get('/data/libros/:id/lista', function (req, res) {
     })
 
 })
+//Devuelve a todos los usuarios que tienen el libro especificado en su Lista de libros favoritos
+app.get('/data/libros/:id/lista', function (req, res) {
+    var id = req.params.id;
+
+    console.log('Petición GET a /data/usuarios:is => Devolviendo la lista de libros del usuario ' + id);
+    
+    Favorito.findAll({
+        where: {
+            idLibro: id
+        },
+        include: [Usuario]
+        
+    }).then((lista) => {
+        if (lista) {
+            res.json(lista);
+        } else {
+            res.status(404).send();
+        }
+    })
+
+})
+//Devuelve a todos los usuarios que tienen el libro especificado en su Lista de libros leidos
+app.get('/data/libros/:id/lista', function (req, res) {
+    var id = req.params.id;
+
+    console.log('Petición GET a /data/usuarios:is => Devolviendo la lista de libros del usuario ' + id);
+    
+    Leido.findAll({
+        where: {
+            idLibro: id
+        },
+        include: [Usuario]
+        
+    }).then((lista) => {
+        if (lista) {
+            res.json(lista);
+        } else {
+            res.status(404).send();
+        }
+    })
+
+})
 //FIN LOGICA LIBROS
 //LOGICA LISTA
+//NUEVO Lista
+app.post('/data/lista', function (req, res) {
+    console.log('Petición POST a /data/lista => Creando una nueva lista');
+    Lista.create({
+        idUsuario: req.body.idUsuario,
+        idLibro: req.body.idLibro,
+        comentario: req.body.comentario,
+        fecha: new Date()
+    }).then((lista) => {
+        console.log('La lista se ha introducido correctamente');
+        response.json(lista);
+    }).catch(err => {
+        res.json({
+            errors: err.errors.map ((error) => {
+                console.log(error.message);
+                return {
+                    attribute: error.path,
+                    message: error.message
+                }
+            })
+        });
+    })
+})
+//BORRAR Lista(ID)
+app.delete('/data/lista/:id' , function (req, res) {
+    var id= req.params.id;
 
+    Lista.findByPk(id).then(lista => {
+        if (usuario) {
+            lista.destroy().then(() => {
+                res.status(204).send();
+            })
+        } else {
+            res.send('La lista especificado no existe')
+        }
+    })
+})
+//GET Lista(ID)
+app.get('/data/lista/:id', function (req, res) {
+    var id = req.params.id;
+
+    console.log('Petición GET a /data/lista/:id => Devolviendo lista ' + id);
+    Lista.findByPk(id).then((lista) => {
+        res.json(lista);
+    })
+})
 //FIN LOGICA LISTA
 //LOGICA FAVORITOS
+//NUEVO Favorito
+app.post('/data/favoritos', function (req, res) {
+    console.log('Petición POST a /data/favoritos => añadiendo un libro favorito');
+    Lista.create({
+        idUsuario: req.body.idUsuario,
+        idLibro: req.body.idLibro,
+        comentario: req.body.comentario,
+        fecha: new Date()
+    }).then((lista) => {
+        console.log('El usuario se ha introducido correctamente');
+        console.log(lista);
+        response.json(lista);
+    }).catch(err => {
+        res.json({
+            errors: err.errors.map ((error) => {
+                console.log(error.message);
+                return {
+                    attribute: error.path,
+                    message: error.message
+                }
+            })
+        });
+    })
+})
+//BORRAR Favorito (ID)
+app.delete('/data/favoritos/:id' , function (req, res) {
+    var id= req.params.id;
 
+    Favorito.findByPk(id).then(fav => {
+        if (fav) {
+            fav.destroy().then(() => {
+                console.log('El favorito se ha eliminado correctamente');
+                res.status(204).send();
+            })
+        } else {
+            res.send('Favorito especificado no existe')
+        }
+    })
+})
+//GET favorito(ID)
+app.get('/data/favoritos/:id', function (req, res) {
+    var id = req.params.id;
+
+    console.log('Petición GET a /data/favoritos/:id => Devolviendo favorito ' + id);
+    Favorito.findByPk(id).then((fav) => {
+        res.json(fav);
+    })
+})
 //FIN LOGICA FAVORITOS
 //LOGICA LEIDOS
+//NUEVO Leidos
+app.post('/data/leidos', function (req, res) {
+    console.log('Petición POST a /data/usuarios => Creando un nuevo usuario');
+    Leido.create({
+        idUsuario: req.body.idUsuario,
+        idLibro: req.body.idLibro,
+        comentario: req.body.comentario,
+        fecha: new Date(),
+        nota: req.body.nota
+    }).then((leido) => {
+        console.log('El usuario se ha introducido correctamente');
+        response.json(leido);
+    }).catch(err => {
+        res.json({
+            errors: err.errors.map ((error) => {
+                console.log(error.message);
+                return {
+                    attribute: error.path,
+                    message: error.message
+                }
+            })
+        });
+    })
+})
+//BORRAR USUARIO(ID)
+app.delete('/data/leidos/:id' , function (req, res) {
+    var id= req.params.id;
 
+    Leido.findByPk(id).then(leido => {
+        if (leido) {
+            leido.destroy().then(() => {
+                console.log('La relación leido se ha eliminado correctamete');
+                res.status(204).send();
+            })
+        } else {
+            res.send('Leido especificado no existe')
+        }
+    })
+})
+//GET Leido(ID)
+app.get('/data/leidos/:id', function (req, res) {
+    var id = req.params.id;
+
+    console.log('Petición GET a /data/leidos/:id => Devolviendo leido ' + id);
+    Leido.findByPk(id).then((leido) => {
+        res.json(leido);
+    })
+})
 //FIN LOGICA LEIDOS
 //LOGICA RESERVA
 //TODO
