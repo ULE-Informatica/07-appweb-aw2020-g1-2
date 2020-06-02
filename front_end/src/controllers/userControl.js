@@ -1,32 +1,20 @@
-import Api from '@/controllers/Api'
+import Api from '@/Controllers/Api'
 
-
-
-  function createUser (credentials) {
-    return Api().post('usuarios', credentials)
-  }
-  function fetchUsers () {
-    return Api().get('usuarios')
-  }
-  function editUser (credentials) {
+export default {
+  // users data
+  createUser (credentials) {
+    return Api().post('users', credentials)
+  },
+  fetchUsers () {
+    return Api().get('users')
+  },
+  editUser (credentials) {
     return Api().post('edit', credentials)
-  }
-  function deleteUser (credentials) {
-    return Api().delete(`usuarios?id=${credentials}`)
-  }   
-  
-  function register (credentials) {
-    return Api().post('usuarios', credentials)
-  }
-  function login (credentials) {
-    return Api().post('authentication', credentials)
-  }
+  },
+  deleteUser (credentials) {
+    return Api().delete(`users?name=${credentials}`)
+  },
 
-module.exports = {
-  createUser,
-  fetchUsers,
-  editUser,
-  deleteUser,
-  register,
-  login
+  
+   
 }

@@ -1,7 +1,2 @@
-import axios from 'axios'
-
-export default() => {
-  return axios.create({
-    baseURL: `http://localhost:8081`
-  })
-}
+//METODO PARA LLAMAR A LA BASE DE DATOS
+//PENDIENTE DE HACER
