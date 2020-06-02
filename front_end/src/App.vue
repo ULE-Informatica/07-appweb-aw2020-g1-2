@@ -40,13 +40,13 @@
 </template>
 
 <script>
-import Navegacion from "./components/Navegacion";
+import HelloWorld from "./components/HelloWorld.vue";
 
 export default {
   name: "App",
 
   components: {
-    Navegacion
+    HelloWorld
   },
 
   data: () => ({
