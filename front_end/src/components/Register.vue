@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import UserControl from '../Contollers/userService'
+import UserControl from '../Contollers/UserControl'
 export default {
   data () {
     return {

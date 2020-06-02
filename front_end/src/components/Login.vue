@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import UserControl from '../Contollers/userService'
+import UserControl from '../contollers/userControl'
 export default {
   data () {
     return {
