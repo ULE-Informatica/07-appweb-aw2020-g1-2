@@ -6,8 +6,6 @@
       :counter="10"
       label="Username"
       required
-      @input="$v.username.$touch()"
-      @blur="$v.username.$touch()"
     ></v-text-field>
     <v-text-field
       v-model="password"
@@ -27,6 +25,7 @@
 </template>
 
 <script>
+var control = require('./../controllers/userControl') 
 const axios = require('axios').default;
   export default {
     data () {
@@ -54,8 +53,10 @@ const axios = require('axios').default;
     },
     methods: {
       submit () {
-        this.$v.$touch()
-        
+        control.verificar({
+          username: this.username,
+          password: this.password
+        })        
       },
     },
   }
