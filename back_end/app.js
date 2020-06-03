@@ -1,7 +1,5 @@
 var express = require ('express')
 var app = express()
-var bp = require ('body-parser')
-var Sequelize = require ('sequelize')
 
 //Database
 var db = require('./config/database')

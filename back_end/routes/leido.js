@@ -1,12 +1,14 @@
 // Cargamos el módulo de express para poder crear rutas
 var express = require ('express')
 var bp = require ('body-parser')
+var cors = require ('cors')
 // Cargamos el controlador
 var leidoControl = require('../control/leidoControl');
 // Llamamos al router
 var api = express.Router();
 api.use(bp.urlencoded({ extended: true}))
 api.use(bp.json())
+api.use(cors())
 // Creamos las rutas
 //Devuelve TODOS LOS libros
 api.get('/leidos', leidoControl.getAll.bind(leidoControl));

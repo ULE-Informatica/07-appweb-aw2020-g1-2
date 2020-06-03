@@ -1,7 +1,7 @@
 // Cargamos el módulo de express para poder crear rutas
 var express = require ('express')
 var bp = require ('body-parser')
-
+var cors = require ('cors')
 
 // Cargamos el controlador
 var UsuarioController = require('../control/usuarioControl');
@@ -10,7 +10,7 @@ var UsuarioController = require('../control/usuarioControl');
 var api = express.Router();
 api.use(bp.urlencoded({ extended: true}))
 api.use(bp.json())
-
+api.use(cors())
 // Creamos las rutas
 //DEVUELVE TODOS LOS USUARIOS
 api.get('/usuarios', UsuarioController.getAll.bind(UsuarioController));
