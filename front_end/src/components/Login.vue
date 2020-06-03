@@ -1,18 +1,67 @@
 <template>
-  <div>
-    <h1>{{ header }}</h1>
-      <form @submit.prevent="loginManager(username, password)">
-        <label class="form" for='username'>Username:</label>
-        <input class="form" type="text" v-model="username">
-        <label class="form" for='password'>Password:</label>
-        <input class="form" type="text" v-model="password">
-        <button type="submit">Submit</button>
-    </form>
-  </div>
+  <form>
+    <v-text-field
+      v-model="username"
+      :rules="[rules.required, rules.min]"
+      :counter="10"
+      label="Username"
+      required
+      @input="$v.username.$touch()"
+      @blur="$v.username.$touch()"
+    ></v-text-field>
+    <v-text-field
+      v-model="password"
+      :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+      :rules="[rules.required, rules.min]"
+      :type="show ? 'text' : 'password'"
+      name="input-10-1"
+      label="Password"
+      value=""
+      hint="At least 8 characters"
+      counter
+      @click:append="show = !show"
+          ></v-text-field>
+
+    <v-btn class="mr-4" @click="submit">Submit</v-btn>
+  </form>
 </template>
 
 <script>
-import UserControl from '../Contollers/userService'
+const axios = require('axios').default;
+  export default {
+    data () {
+      return {
+        header: 'Login',
+        username: '',
+        show: false,
+        password: '',
+        rules: {
+          required: value => !!value || 'Required.',
+          min: v => v.length >= 8 || 'Min 8 characters',
+        },
+      }
+    },
+    mounted:()  => {
+      axios
+        .get('http://localhots:3000/data/authentication')
+        .then(res => {
+          console.log(res.data);
+
+        })
+        .catch(e =>{
+          console.log(e.response);
+        })
+    },
+    methods: {
+      submit () {
+        this.$v.$touch()
+        
+      },
+    },
+  }
+
+/*
+import UserControl from '../Contollers/UserControl'
 export default {
   data () {
     return {
@@ -37,6 +86,7 @@ export default {
     }
   }
 }
+*/
 </script>
 
 <style scoped lang='scss'>

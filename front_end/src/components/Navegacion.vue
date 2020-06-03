@@ -1,30 +1,14 @@
 <template>
-  <div class='navegacion'>
-    <ul class='navegacion-list'>
-      <li class='navegacion-item' v-for='(item, index) in items' @click='navigatePage(index)'
-        :key=item[index]>{{ item }}
-      </li>
-    </ul>
-  </div>
+  <div class="navegacion">
+<router-link to="/login">Login </router-link>
+    <router-link to="/register">Register</router-link>  </div>
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      items: ['Login', 'Register']
-    }
-  },
-  methods: {
-    navigatePage (i) {
-      this.$router.push({ path: `/${this.items[i]}` })
-    }
-  }
-}
+
 </script>
 
-<style scoped lang='scss'>
-
+<style scoped lang="scss">
 ul {
   list-style-type: none;
   padding: 0;
@@ -36,5 +20,4 @@ ul {
     cursor: pointer;
   }
 }
-
 </style>

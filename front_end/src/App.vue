@@ -34,19 +34,19 @@
     </v-app-bar>
 
     <v-content>
-      <HelloWorld />
+      <router-view />
     </v-content>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+//import HelloWorld from "./components/HelloWorld.vue";
 
 export default {
   name: "App",
 
   components: {
-    HelloWorld
+    //HelloWorld
   },
 
   data: () => ({
