@@ -1,74 +1,97 @@
 <template>
-  <div>
-    <h1>{{ header }}</h1>
-
-    <div class="error" v-if="errors.length">
-      <p>
-        <b>Please correct the following error(s):</b>
-        <ul>
-          <li v-for="(error, i) in errors" :key="i">{{ error }}</li>
-        </ul>
-      </p>
-    </div>
-
-    <form @submit.prevent="createManager(username, password)">
-      <label class="form" for='username'>Username:</label>
-      <input class="form" type="text" v-model="username">
-      <label class="form" for='email'>Email:</label>
-      <input class="form" type="text" v-model="email">
-      <label class="form" for='password'>Password:</label>
-      <input class="form" type="text" v-model="password">
-      <label class="form" for='confirm password'>Confirm Password:</label>
-      <input class="form" type="text" v-model="confirmedPw">
-      <button type="submit">Submit</button>
-    </form>
-  </div>
+  <v-form v-model="valid">
+    <v-container>
+      <v-row>
+        <v-col
+          cols="12"
+          md="4"
+        >
+          <v-text-field
+            v-model="username"
+            :rules="usernameRules"
+            :counter="20"
+            label="Usuario"
+            required
+          ></v-text-field>
+        </v-col>
+        <v-col
+          cols="12"
+          md="4"
+        >
+          <v-text-field
+            v-model="email"
+            :rules="emailRules"
+            label="E-mail"
+            required
+          ></v-text-field>
+        </v-col>
+        <v-col
+          cols="12"
+          md="4"
+        >
+          <v-text-field
+            v-model="password"
+            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+            :rules="passwordRules"
+            :type="show ? 'text' : 'password'"
+            :counter="8"
+            label="Contraseña"
+            required
+            @click:append="show = !show"
+          ></v-text-field>
+        </v-col>
+        <v-col
+          cols="12"
+          md="4"
+        >
+          <v-text-field
+            v-model="passwordConfirm"
+            :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+            :rules="[passwordRules, passwordConfirmationRule]"
+            :type="show ? 'text' : 'password'"
+            :counter="8"
+            label="Repita contraseña"
+            required
+            @click:append="show = !show"
+          ></v-text-field>
+        </v-col>
+      </v-row>
+          <v-btn class="mr-4" v-on:click="submit">Registrar</v-btn>
+    </v-container>
+  </v-form>
 </template>
 
 <script>
-import UserControl from '../Contollers/userService'
+//var control = require("./../controllers/indexControl");
 export default {
-  data () {
-    return {
-      header: 'Register',
-      username: null,
-      email: null,
-      password: null,
-      confirmedPw: null,
-      errors: []
-    }
-  },
-  methods: {
-    async createManager (username, password) { //HABRÁ QUE TENER UN CONTROLADOR EN EL BACK_END QUE HAGA EL REGISTER EN LA BASE DE DATOS
-      this.errors = []
-      if (!this.username) {
-        this.errors.push('Name required.')
-        return
-      }
-      if (!this.email) {
-        this.errors.push('Email required.')
-        return
-      }
-      if (!this.password) {
-        this.errors.push('Password required.')
-        return
-      }
-      if (!this.confirmedPw || this.confirmedPw !== this.password) {
-        this.errors.push('Please enter the same password again.')
-        return
-      }
-      try {
-        await UserControl.register({
-          email: email,
-          username: username,
-          password: password
-        })
-        alert('Manager has successfully registered')
-      } catch (err) {
-        alert(err)
-      }
-    }
-  }
+  data: () => ({
+      show: false,
+      show2: false,
+      valid: false,
+      username: '',
+      
+      nameRules: [
+        v => !!v || 'Username is required',
+        v => v.length <= 20 || 'Username must be less than 20 characters',
+      ],
+      email: '',
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+/.test(v) || 'E-mail must be valid',
+      ],
+      password: '',
+      passwordConfirm: '',
+      passwordRules: [
+        v => !!v || 'Password is required',
+        v =>v.length >= 8 || 'Password must be valid',
+        v =>v.length <= 20 || 'Password must be less than 20 characters',
+      ]
+    }),
+    computed: {
+    passwordConfirmationRule() {
+      return () => (this.password === this.passwordConfirm) || 'Password must match'
+    },
+}
 }
 </script>
 
