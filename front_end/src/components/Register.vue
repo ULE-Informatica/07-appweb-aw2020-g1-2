@@ -9,7 +9,7 @@
           <v-text-field
             v-model="username"
             :rules="usernameRules"
-            :counter="20"
+            :counter="50"
             label="Usuario"
             required
           ></v-text-field>
@@ -34,7 +34,7 @@
             :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
             :rules="passwordRules"
             :type="show ? 'text' : 'password'"
-            :counter="8"
+            :counter="4"
             label="Contraseña"
             required
             @click:append="show = !show"
@@ -49,7 +49,7 @@
             :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
             :rules="[passwordRules, passwordConfirmationRule]"
             :type="show ? 'text' : 'password'"
-            :counter="8"
+            :counter="4"
             label="Repita contraseña"
             required
             @click:append="show = !show"
@@ -62,7 +62,7 @@
 </template>
 
 <script>
-//var control = require("./../controllers/indexControl");
+var control = require("./../controllers/indexControl");
 export default {
   data: () => ({
       show: false,
@@ -72,7 +72,7 @@ export default {
       
       nameRules: [
         v => !!v || 'Username is required',
-        v => v.length <= 20 || 'Username must be less than 20 characters',
+        v => v.length <= 50 || 'Username must be less than 20 characters',
       ],
       email: '',
       emailRules: [
@@ -83,15 +83,32 @@ export default {
       passwordConfirm: '',
       passwordRules: [
         v => !!v || 'Password is required',
-        v =>v.length >= 8 || 'Password must be valid',
+        v =>v.length >= 4 || 'Password must be valid',
         v =>v.length <= 20 || 'Password must be less than 20 characters',
       ]
     }),
-    computed: {
+  computed: {
     passwordConfirmationRule() {
       return () => (this.password === this.passwordConfirm) || 'Password must match'
     },
-}
+  },
+  mounted: () => {},
+  methods: {
+    submit: async function() {
+      console.log("Creando el usuario");
+
+      control
+        .registrar(this.username, this.password, this.email)
+        .then( () => {
+            console.log("Registro correcto correctas");
+            this.$router.push("Home");
+
+        })
+        .catch(err => console.log(err.message));
+
+      //this.$router.push('Home')
+    }
+  }
 }
 </script>
 
