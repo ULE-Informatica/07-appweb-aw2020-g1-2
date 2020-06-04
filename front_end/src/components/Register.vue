@@ -48,11 +48,11 @@
             v-model="passwordConfirm"
             :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
             :rules="[passwordRules, passwordConfirmationRule]"
-            :type="show ? 'text' : 'password'"
+            :type="show2 ? 'text' : 'password'"
             :counter="4"
             label="Repita contraseña"
             required
-            @click:append="show = !show"
+            @click:append="show2 = !show2"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -70,7 +70,7 @@ export default {
       valid: false,
       username: '',
       
-      nameRules: [
+      usernameRules: [
         v => !!v || 'Username is required',
         v => v.length <= 50 || 'Username must be less than 20 characters',
       ],
