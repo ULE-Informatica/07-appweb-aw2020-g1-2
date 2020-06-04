@@ -85,11 +85,11 @@ import libroControl from "../controllers/libroControl"
           text: "Titulo",
           align: 'start',
           sortable: false,
-          value: "libros[0].titulo"
+          value: "titulo"
         },
-        { text: "Autor", value: "libros[0].autor" },
-        { text: "Género", value: "libros[0].genero"},
-        { text: "Idioma", value: "libros[0].idioma" },
+        { text: "Autor", value: "autor" },
+        { text: "Género", value: "genero"},
+        { text: "Idioma", value: "idioma" },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       libros: [],
