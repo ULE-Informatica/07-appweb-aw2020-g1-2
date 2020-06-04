@@ -1,7 +1,7 @@
 <template>
   <div class="indexPanel">
-    <router-link to="/login">Login</router-link>
-    <router-link to="/register">Register</router-link>
+    <router-link to="/login" class="navegacion-item">Login</router-link>
+    <router-link to="/register" class="navegacion-item">Register</router-link>
   </div>
 </template>
 
@@ -15,7 +15,7 @@ ul {
 }
 .navegacion-item {
   display: inline-block;
-  margin: 0 10px;
+  margin: 10px 10px;
   &:hover {
     cursor: pointer;
   }

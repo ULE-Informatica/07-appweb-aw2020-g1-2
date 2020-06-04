@@ -1,9 +1,15 @@
 //var  Vue = require ("vue").default;
 var axios = require('axios');
 
-function edit() {  
+function edit(item) {  
     const promise = new Promise (function (resolve, reject) {
-        axios.post('http://localhost:3000/data/favoritos')
+        axios.post('http://localhost:3000/data/favoritos/'+item.id, {
+            id: item.id,
+            idLibro: item.idLibro,
+            idUsuario:item.idUsuario,
+            comentario:item.comentario,
+            fecha: item.fecha
+        })
         .then(res => {
             console.log(res.data);
             resolve(res);

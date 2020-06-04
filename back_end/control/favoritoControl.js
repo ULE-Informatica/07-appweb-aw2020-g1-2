@@ -44,6 +44,8 @@ function get(req, res) {
 }
 function add(req, res) {
     console.log('Petición POST a /data/lista => Creando una nueva lista');
+    var id = req.body.id;
+
     Favorito.create({
         idUsuario: req.body.idUsuario,
         idLibro: req.body.idLibro,
@@ -51,7 +53,7 @@ function add(req, res) {
         fecha: new Date()
     }).then((lista) => {
         console.log('La lista se ha introducido correctamente');
-        response.json(lista);
+        res.json(lista);
     }).catch(err => {
         res.json({
             errors: err.errors.map ((error) => {
@@ -63,7 +65,24 @@ function add(req, res) {
             })
         });
     })
+
 }
+function update (req, res,next) {
+    var id=req.params.id;
+    var coment = req.body.comentario
+    console.log('Actualizando el comentario del favorito ' +id)
+    Favorito.update(      
+        {comentario: coment},
+        {returning: true, where: {id: req.body.id} }
+      ).then(updatedBook => {
+        res.json(updatedBook)
+      }).catch(next)    
+}
+
+async function getInstance (id) {
+    return await Lista.findOne({id:id})
+}
+
 function remove(req, res) {
     var id= req.params.id;
     Favorito.findByPk(id).then(lista => {
@@ -81,5 +100,5 @@ function remove(req, res) {
 }
 
 module.exports = {
-    getAll, add, get, remove
+    getAll, add, get, remove, update
 }

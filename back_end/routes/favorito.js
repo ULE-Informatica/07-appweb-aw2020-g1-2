@@ -18,7 +18,10 @@ api.get('/favoritos/:id', function (req, res) {
 })
 //Añade lista
 api.post('/favoritos', function (req, res) {
-    favControl.add(req,res);
+    favControl.add(req,res)
+});
+api.post('/favoritos/:id', function (req,res,next) {
+    favControl.update(req,res,next)
 });
 //Borra lista
 api.delete('/favoritos/:id', function (req, res) {

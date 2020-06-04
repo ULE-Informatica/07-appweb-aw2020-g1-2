@@ -20,6 +20,9 @@ api.get('/lista/:id', function (req, res) {
 api.post('/lista', function (req, res) {
     listaControl.add(req,res);
 });
+api.post('/lista/:id', function (req,res,next) {
+    listaControl.update(req,res,next)
+});
 //Borra lista
 api.delete('/lista/:id', function (req, res) {
     listaControl.remove(req,res);

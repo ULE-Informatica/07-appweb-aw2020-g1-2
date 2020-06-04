@@ -43,6 +43,8 @@ function get(req, res) {
 }
 function add(req, res) {
     console.log('Petición POST a /data/lista => Creando una nueva lista');
+    console.log('IdUsuario =' + req.body.idUsuario)
+    console.log('IdLibro =' + req.body.idLibro)
     Leido.create({
         idUsuario: req.body.idUsuario,
         idLibro: req.body.idLibro,
@@ -76,7 +78,17 @@ function remove(req, res) {
         }
     })
 }
-
+function update (req, res,next) {
+    var id=req.params.id;
+    var coment = req.body.comentario
+    console.log('Actualizando el comentario del favorito ' +id)
+    Leido.update(      
+        {comentario: coment},
+        {returning: true, where: {id: req.body.id} }
+      ).then(updatedBook => {
+        res.json(updatedBook)
+      }).catch(next)    
+}
 module.exports = {
-    getAll, add, get, remove
+    getAll, add, get, remove,update
 }

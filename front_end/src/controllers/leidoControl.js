@@ -3,7 +3,7 @@ var axios = require('axios');
 
 function edit(item) {  
     const promise = new Promise (function (resolve, reject) {
-        axios.post('http://localhost:3000/data/lista/'+item.id, {
+        axios.post('http://localhost:3000/data/leidos/'+item.id, {
             id: item.id,
             idLibro: item.idLibro,
             idUsuario:item.idUsuario,
@@ -22,9 +22,9 @@ function edit(item) {
 }
 
 function remove(id) {  
-    console.log('delete a http://localhost:3000/data/lista/'+id)
+    console.log('delete a http://localhost:3000/data/leidos/'+id)
     const promise = new Promise (function (resolve, reject) {
-        axios.delete('http://localhost:3000/data/lista/'+id)
+        axios.delete('http://localhost:3000/data/leidos/'+id)
         .then(res => {
             console.log(res.data);
             resolve(res);
@@ -39,4 +39,3 @@ function remove(id) {
 
 
 module.exports = {remove, edit}
-  

@@ -20,6 +20,9 @@ api.get('/leidos/:id', function (req, res) {
 api.post('/leidos', function (req, res) {
     leidoControl.add(req,res);
 });
+api.post('/leidos/:id', function (req,res,next) {
+    leidoControl.update(req,res,next)
+});
 //Borra lista
 api.delete('/leidos/:id', function (req, res) {
     leidoControl.remove(req,res);

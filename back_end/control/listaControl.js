@@ -76,7 +76,18 @@ function remove(req, res) {
         }
     })
 }
+function update (req, res,next) {
+    var id=req.params.id;
+    var coment = req.body.comentario
+    console.log('Actualizando el comentario del favorito ' +id)
+    Lista.update(      
+        {comentario: coment},
+        {returning: true, where: {id: req.body.id} }
+      ).then(updatedBook => {
+        res.json(updatedBook)
+      }).catch(next)    
+}
 
 module.exports = {
-    getAll, add, get, remove
+    getAll, add, get, remove,update
 }

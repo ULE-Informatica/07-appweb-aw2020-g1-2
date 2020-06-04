@@ -1,7 +1,10 @@
 <template>
   <div class="index">
+    <div class="center">
     <img alt="Vue logo" src="../assets/logo.png" />
+    
     <Nav></Nav>
+    </div>
   </div>
 </template>
 
@@ -18,7 +21,16 @@ export default {
 </script>
 
 <style scoped>
-    .index {
-            align-content: center;
-    }
+  .index {
+    background-color: bisque;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .center {
+
+    background-color: aquamarine;
+    width: 300px;
+  }
+
 </style>
