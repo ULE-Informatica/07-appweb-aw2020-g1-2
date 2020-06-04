@@ -5,6 +5,8 @@
     sort-by="Titulo"
     class="elevation-1"
   >
+      <img alt="Vue logo" src="../assets/LogoV1.png" />  
+
     <template v-slot:top>
       <v-toolbar flat color="white">
         <v-toolbar-title>Libros leídos</v-toolbar-title>
@@ -97,9 +99,9 @@ import usuarioControl from "../controllers/usuarioControl"
         { text: "Autor", value: "libros[0].autor" },
         { text: "Género", value: "libros[0].genero"},
         { text: "Idioma", value: "libros[0].idioma" },
-        { text: "Comentario", value: "libros[0].comentario" },
-        { text: "Fecha", value: "libros[0].fecha" },
-        { text: "Nota", value: "libros[0].nota" },
+        { text: "Comentario", value: "comentario" },
+        { text: "Fecha", value: "fecha" },
+        { text: "Nota", value: "nota" },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       libros: [],
