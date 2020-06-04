@@ -9,12 +9,12 @@ var Favorito = require('../model/favorito')
 var Leido = require ('../model/leido')
 var Libro = require('../model/libro')
 //Relaciones
-Libro.belongsToMany(Lista, {through: 'ListaLibro'})
-Libro.belongsToMany(Favorito, {through: 'FavoritoLibro'})
-Libro.belongsToMany(Leido, {through: 'LibroLeido'})
-Lista.hasMany(Libro, {foreignKey: 'idLibro'})
-Favorito.hasMany(Libro, {foreignKey: 'idLibro'})
-Leido.hasMany(Libro, {foreignKey: 'idLibro'})
+Libro.hasMany(Lista, {foreignKey: 'idLibro'})
+Lista.belongsTo(Libro, {foreignKey: 'idLibro'})
+Libro.hasMany(Favorito, {foreignKey: 'idLibro'})
+Favorito.belongsTo(Libro, {foreignKey: 'idLibro'})
+Libro.hasMany(Leido, {foreignKey: 'idLibro'})
+Leido.belongsTo(Libro, {foreignKey: 'idLibro'})
 
 Usuario.hasMany(Lista, {foreignKey: 'idUsuario'})
 Lista.belongsTo(Usuario, {foreignKey: 'idUsuario'})
@@ -22,7 +22,6 @@ Usuario.hasMany(Favorito, {foreignKey: 'idUsuario'})
 Favorito.belongsTo(Usuario, {foreignKey: 'idUsuario'})
 Usuario.hasMany(Leido, {foreignKey: 'idUsuario'})
 Leido.belongsTo(Usuario, {foreignKey: 'idUsuario'})
-
 //FUNCIONES
 function getAll(req, res) {
     Leido.findAll({
@@ -68,7 +67,7 @@ function add(req, res) {
 function remove(req, res) {
     var id= req.params.id;
     Leido.findByPk(id).then(lista => {
-        if (usuario) {
+        if (lista) {
             lista.destroy().then(() => {
                 res.status(204).send();
             })

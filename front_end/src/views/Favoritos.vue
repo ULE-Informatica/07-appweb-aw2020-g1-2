@@ -1,21 +1,12 @@
 <template>
     
   <div class="libros">
-    <img alt="Vue logo" src="../assets/logo.png" />  
+    <img alt="Vue logo" src="../assets/LogoV1.png" />  
     <botones> </botones>
     <div>
       <h1> Mi lista de libros favoritos </h1>
     </div>
-    <div> 
-        <v-data-table
-            :headers="headers"
-            :items="libros"
-            :items-per-page="10"
-            class="elevation-1"
-        >
-
-    </v-data-table>
-    </div>
+  
     <div>
       <v-simple-table>   
         <thead>
@@ -30,15 +21,15 @@
         </thead>
         <tbody>
           <tr v-for="item in libros" :key="item.id">
-            <td>{{ item.libros[0].titulo }}</td>
-            <td>{{ item.libros[0].autor }}</td>
-            <td>{{ item.libros[0].genero }}</td>
-            <td>{{ item.libros[0].idioma }}</td>
+            <td>{{ item.libro.titulo }}</td>
+            <td>{{ item.libro.autor }}</td>
+            <td>{{ item.libro.genero }}</td>
+            <td>{{ item.libro.idioma }}</td>
             <td>{{ item.comentario }}</td>
             <td>
 
               <v-btn color="red" dark                
-                @click="deleteItem(props.item)">Eliminar
+                @click="deleteItem(item)">Eliminar
               </v-btn>
 
             </td>
@@ -55,15 +46,13 @@
 //FALTARIA AÑADIR FUNCION PRE RENDER (EN PLANTILLA TAL VEZ)
 //import Vue from "vue"
 import usuarioControl from "../controllers/usuarioControl"
-import listaControl from "../controllers/listaControl"
-//import botones from "../components/Botones"
+import listaControl from "../controllers/favoritoControl"
+import botones from "../components/Botones"
 //import axios from 'axios'
 export default {
-   /*
-   components: {
+    components: {
       botones
     },
-    */
     data () {
         return {
             //userName: Vue.prototype.$usuario.nombreUsuario,
@@ -71,19 +60,19 @@ export default {
             headers: [
                 {
                     text: "Titulo",
-                    value: "libros[0].titulo"
+                    value: "libro.titulo"
                 },
                 {
                     text: "Autor",
-                    //value: "libros[0].autor"                    
+                    value: "libro.autor"                    
                 },
                 {
                     text: "Género",
-                    value: "libros[0].genero"
+                    value: "libro.genero"
                 },
                 {
                     text: "Idioma",
-                    value: "libros[0].idioma"
+                    value: "libro.idioma"
                 },
                 {
                     text: "Comentario",
@@ -97,8 +86,7 @@ export default {
     },
     mounted: async function () {
         console.log("Pidiendo todos los libros a la base de datos")
-        //this.libros=LibroControl.getAll();
-        
+        //this.libros=LibroControl.getAll();       
         usuarioControl.getFavoritos(1)
         .then( res => {
             this.libros = res.data;
@@ -107,18 +95,21 @@ export default {
         })
     },
     methods: {
-
       deleteItem (item) {
-        listaControl.deleteItem(item.id)
+        console.log('Eliminando libro de la lista de favoritos')
+        listaControl.remove(item.id)
         .then( res => {
-          console.log(res.message)
           console.log('Libro eliminado de la lista con exito')
+          console.log(res.message) 
+          const index = this.libros.indexOf(item)
+          this.libros.splice(index.id, 1)
         }).catch( err=> {
           console.log(err.message)
         })
+        
       },
-
     }
+  
 }
 </script>
 

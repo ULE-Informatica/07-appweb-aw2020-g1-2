@@ -9,12 +9,12 @@ var Favorito = require('../model/favorito')
 var Leido = require ('../model/leido')
 var Libro = require('../model/libro')
 //Relaciones
-Libro.belongsToMany(Lista, {through: 'ListaLibro'})
-Libro.belongsToMany(Favorito, {through: 'FavoritoLibro'})
-Libro.belongsToMany(Leido, {through: 'LibroLeido'})
-Lista.hasMany(Libro, {foreignKey: 'idLibro'})
-Favorito.hasMany(Libro, {foreignKey: 'idLibro'})
-Leido.hasMany(Libro, {foreignKey: 'idLibro'})
+Libro.hasMany(Lista, {foreignKey: 'idLibro'})
+Lista.belongsTo(Libro, {foreignKey: 'idLibro'})
+Libro.hasMany(Favorito, {foreignKey: 'idLibro'})
+Favorito.belongsTo(Libro, {foreignKey: 'idLibro'})
+Libro.hasMany(Leido, {foreignKey: 'idLibro'})
+Leido.belongsTo(Libro, {foreignKey: 'idLibro'})
 
 Usuario.hasMany(Lista, {foreignKey: 'idUsuario'})
 Lista.belongsTo(Usuario, {foreignKey: 'idUsuario'})
@@ -67,11 +67,14 @@ function add(req, res) {
 function remove(req, res) {
     var id= req.params.id;
     Favorito.findByPk(id).then(lista => {
-        if (usuario) {
+        console.log('destruyendo la lista '+id)
+        if (lista) {
             lista.destroy().then(() => {
+                console.log('lista destruida con exito')
                 res.status(204).send();
             })
         } else {
+            console.log('id de lista invalido')
             res.send('La lista especificado no existe')
         }
     })
