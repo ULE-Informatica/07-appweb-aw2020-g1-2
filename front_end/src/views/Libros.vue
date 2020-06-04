@@ -1,6 +1,6 @@
 <template>
   <div class="libros">
-    <img alt="Vue logo" src="../assets/LogoV1.png" />  
+    <img alt="Vue logo" src="../assets/logo.png" />  
     <botones> </botones>
     <div>
       <h1> Libros </h1>
@@ -20,12 +20,14 @@
 //FALTARIA AÑADIR FUNCION PRE RENDER (EN PLANTILLA TAL VEZ)
 //import Vue from "vue"
 import LibroControl from "../controllers/libroControl"
-import botones from "../components/Botones"
+//import botones from "../components/Botones"
 //import axios from 'axios'
 export default {
+/*
     components: {
       botones
     },
+*/
     data () {
         return {
             //userName: Vue.prototype.$usuario.nombreUsuario,

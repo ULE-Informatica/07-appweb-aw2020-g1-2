@@ -1,7 +1,7 @@
 <template>
     
   <div class="libros">
-    <img alt="Vue logo" src="../assets/LogoV1.png" />  
+    <img alt="Vue logo" src="../assets/logo.png" />  
     <botones> </botones>
     <div>
       <h1> Mi lista de libros favoritos </h1>
@@ -56,12 +56,14 @@
 //import Vue from "vue"
 import usuarioControl from "../controllers/usuarioControl"
 import listaControl from "../controllers/listaControl"
-import botones from "../components/Botones"
+//import botones from "../components/Botones"
 //import axios from 'axios'
 export default {
-    components: {
+   /*
+   components: {
       botones
     },
+    */
     data () {
         return {
             //userName: Vue.prototype.$usuario.nombreUsuario,
@@ -109,13 +111,14 @@ export default {
       deleteItem (item) {
         listaControl.deleteItem(item.id)
         .then( res => {
+          console.log(res.message)
           console.log('Libro eliminado de la lista con exito')
         }).catch( err=> {
           console.log(err.message)
         })
       },
 
-  
+    }
 }
 </script>
 

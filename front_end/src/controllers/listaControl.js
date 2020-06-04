@@ -2,6 +2,7 @@
 var axios = require('axios');
 
 function edit(lista) {  
+    console.log(lista)
     const promise = new Promise (function (resolve, reject) {
         axios.post('http://localhost:3000/data/libros')
         .then(res => {
