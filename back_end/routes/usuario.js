@@ -39,7 +39,7 @@ api.get('/usuarios/:id/leidos', function (req, res) {
     UsuarioController.getLeidos(req,res);
 })
 //Autentica al usuario
-api.get('/authentication', function(req,res) {
+api.post('/authentication', function(req,res) {
     UsuarioController.authenticate(req,res);
 })
 // Exportamos la configuración

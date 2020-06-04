@@ -1,18 +1,26 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <Nav></Nav>
+    <div>
+      <h1>{{ userName }} Home</h1>
+    </div>
   </div>
 </template>
 
 <script>
+//FALTARIA AÑADIR FUNCION PRE RENDER (EN PLANTILLA TAL VEZ)
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
+import Vue from "vue";
 export default {
   name: "Home",
   components: {
-    HelloWorld
+
+  },
+  data() {
+    return {     
+      userName: Vue.prototype.$usuario.nombreUsuario
+    };
   }
 };
 </script>

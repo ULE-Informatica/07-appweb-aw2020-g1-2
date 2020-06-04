@@ -9,6 +9,4 @@ const sequelize = new Sequelize('aw_pfinal', 'root', 'david98', {
     }
 });
 
-
-//
 module.exports = sequelize

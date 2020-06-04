@@ -1,18 +1,66 @@
 <template>
-  <div>
-    <h1>{{ header }}</h1>
-      <form @submit.prevent="loginManager(username, password)">
-        <label class="form" for='username'>Username:</label>
-        <input class="form" type="text" v-model="username">
-        <label class="form" for='password'>Password:</label>
-        <input class="form" type="text" v-model="password">
-        <button type="submit">Submit</button>
-    </form>
-  </div>
+  <v-form>
+    <v-text-field
+      v-model="username"
+      :rules="[rules.required, rules.min]"
+      :counter="50"
+      label="Username"
+      required
+    ></v-text-field>
+    <v-text-field
+      v-model="password"
+      :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+      :rules="[rules.required, rules.min]"
+      :type="show ? 'text' : 'password'"
+      name="input-10-1"
+      label="Password"
+      value
+      hint="At least 4 characters"
+      counter
+      @click:append="show = !show"
+    ></v-text-field>
+
+    <v-btn class="mr-4" v-on:click="submit">Ingresar</v-btn>
+  </v-form>
 </template>
 
 <script>
-import UserControl from '../Contollers/userService'
+var control = require("./../controllers/indexControl");
+//const axios = require('axios').default;
+export default {
+  data() {
+    return {
+      header: "Login",
+      username: "",
+      show: false,
+      password: "",
+      rules: {
+        required: value => !!value || "Required.",
+        min: v => v.length >= 4 || "Min 4 characters"
+      }
+    };
+  },
+  mounted: () => {},
+  methods: {
+    submit: async function() {
+      console.log("Verificando el usuario");
+
+      control
+        .verificar(this.username, this.password)
+        .then( () => {
+            console.log("Credenciales correctas");
+            this.$router.push("Home");
+
+        })
+        .catch(err => console.log(err.message));
+
+      //this.$router.push('Home')
+    }
+  }
+};
+
+/*
+import UserControl from '../Contollers/UserControl'
 export default {
   data () {
     return {
@@ -37,6 +85,7 @@ export default {
     }
   }
 }
+*/
 </script>
 
 <style scoped lang='scss'>

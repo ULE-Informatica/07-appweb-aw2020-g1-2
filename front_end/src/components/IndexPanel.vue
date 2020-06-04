@@ -1,11 +1,11 @@
 <template>
-  <div class="navegacion">
-<router-link to="/login">Login </router-link>
-    <router-link to="/register">Register</router-link>  </div>
+  <div class="indexPanel">
+    <router-link to="/login">Login</router-link>
+    <router-link to="/register">Register</router-link>
+  </div>
 </template>
 
 <script>
-
 </script>
 
 <style scoped lang="scss">
