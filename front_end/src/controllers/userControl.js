@@ -1,32 +1,31 @@
-var Api = require("./../controllers/api");
-
+//var Api = require("./../controllers/api");
+import Vue from "vue";
+var axios = require('axios')
 
   // users data
-  function createUser(credentials) {
-    return Api.post("usuarios", credentials);
-  }
-  function fetchUsers() {
-    return Api.get("usuarios");
-  }
-  function fetchUser(credentials) {
-    return Api.get(`usuarios/?id=${credentials}`);
-  }
-  function deleteUser(credentials) {
-    return Api.delete(`usuarios/?id=${credentials}`, ); 
-  }
-  function leidos(credentials) {
-    return Api.get(`usuarios/?id=${credentials}/leidos`, credentials);
-  }
-  function favs(credentials) {
-    return Api.get(`usuarios/?id=${credentials}/favoritos`, credentials);
-  }
-  function libros(credentials) {
-    return Api.get(`usuarios/?id=${credentials}/lista`, credentials);
-  }
-  function verificar(credentials) {
-    return Api.get("authentication", credentials);
+  function createUser() {
+    //return Api.post("usuarios", credentials);
+    
   }
 
+  function getAll() {
+    //return Api.get("usuarios");
+  }
+  function getUser() {
+    //return Api.get(`usuarios/?id=${credentials}`);
+  }
+
+  function leidos() {
+    //return Api.get(`usuarios/?id=${credentials}/leidos`, credentials);
+  }
+  function favs() {
+    //return Api.get(`usuarios/?id=${credentials}/favoritos`, credentials);
+  }
+  function libros() {
+    //return Api.get(`usuarios/?id=${credentials}/lista`, credentials);
+  }
+
+
 module.exports = {
-  createUser, fetchUsers, fetchUser, deleteUser, verificar, leidos, favs, libros 
+  createUser, fetchUsers, fetchUser, deleteUser, leidos, favs, libros 
 };

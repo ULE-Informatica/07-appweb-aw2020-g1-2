@@ -131,6 +131,8 @@ function getLeidos (req, res) {
 }
 function authenticate(req,res) {
     console.log('Autenticando al usuario');
+    console.log(req.body.nombreUsuario);
+    console.log(req.body.contrasena);
     Usuario.findOne({
         where: {
             nombreUsuario: req.body.nombreUsuario,
@@ -138,10 +140,15 @@ function authenticate(req,res) {
         }
     }).then((usuario)=> {
         if (usuario) {
+            console.log('Credenciales validas para el usuario con id=' + usuario.idUsuario);
             res.json(usuario);
         } else {
+            console.log('credenciales invalidas');
             res.status(404).send('Credenciales invalidas');
         }
+    }).catch(err => {
+        console.log('Credenciales insuficientes');
+        res.status(404).send('Es necesario especificar un nombre de usuario y una contraseña')
     })
 }
 module.exports = {
