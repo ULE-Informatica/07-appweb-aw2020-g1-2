@@ -41,6 +41,12 @@
                   <v-col cols="12" sm="6" md="4">
                     <v-text-field v-model="editedItem.comentario" label="Comentario"></v-text-field>
                   </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field v-model="editedItem.fecha" label="Fecha"></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field v-model="editedItem.nota" label="Nota"></v-text-field>
+                  </v-col>
                 </v-row>
               </v-container>
             </v-card-text>
@@ -88,12 +94,12 @@ import usuarioControl from "../controllers/usuarioControl"
           sortable: false,
           value: "libros[0].titulo"
         },
-        {text: "Autor"
-        //value: "libros[0].autor"
-        },
+        { text: "Autor", value: "libros[0].autor" },
         { text: "Género", value: "libros[0].genero"},
         { text: "Idioma", value: "libros[0].idioma" },
         { text: "Comentario", value: "libros[0].comentario" },
+        { text: "Fecha", value: "libros[0].fecha" },
+        { text: "Nota", value: "libros[0].nota" },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       libros: [],
@@ -104,6 +110,8 @@ import usuarioControl from "../controllers/usuarioControl"
         Género: '',
         Idioma: '',
         Comentario: '',
+        Fecha: '',
+        Nota: '',
       },
       defaultItem: {
         Titulo: '',
@@ -111,6 +119,8 @@ import usuarioControl from "../controllers/usuarioControl"
         Género: '',
         Idioma: '',
         Comentario: '',
+        Fecha: '',
+        Nota: '',
       },
     }),
 
