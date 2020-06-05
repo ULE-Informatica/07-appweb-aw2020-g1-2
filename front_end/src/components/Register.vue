@@ -123,12 +123,12 @@ export default {
 
         })
         .catch(err => {
-          if (this.err.message=="NombreUsuario must be unique"){
+          if (err.message=="NombreUsuario must be unique"){
             console.log("error usuario");
             this.errorUser=true;
             setTimeout(this.errorUser=false,10);
           }
-          if (this.err.message=="Email must be unique"){
+          if (err.message=="Email must be unique"){
             console.log("error email");
             this.errorEmail=true;
             setTimeout(this.errorEmail=false,10);
