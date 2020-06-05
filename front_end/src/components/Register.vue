@@ -1,8 +1,9 @@
 <template>
+<div style="margin-top: 20px">
   <v-form v-model="valid">
     <v-container>
-      <v-row>
-        <v-col
+      <v-col>
+        <v-row
           cols="12"
           md="4"
         >
@@ -15,8 +16,8 @@
                   @change="error=false"
 
           ></v-text-field>
-        </v-col>
-        <v-col
+        </v-row>
+        <v-row
           cols="12"
           md="4"
         >
@@ -28,8 +29,8 @@
                   @change="error=false"
 
           ></v-text-field>
-        </v-col>
-        <v-col
+        </v-row>
+        <v-row
           cols="12"
           md="4"
         >
@@ -38,13 +39,13 @@
             :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
             :rules="passwordRules"
             :type="show ? 'text' : 'password'"
-            :counter="4"
+            :counter="20"
             label="Contraseña"
             required
             @click:append="show = !show"
           ></v-text-field>
-        </v-col>
-        <v-col
+        </v-row>
+        <v-row
           cols="12"
           md="4"
         >
@@ -53,13 +54,13 @@
             :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
             :rules="[passwordRules, passwordConfirmationRule]"
             :type="show2 ? 'text' : 'password'"
-            :counter="4"
+            :counter="20"
             label="Repita contraseña"
             required
             @click:append="show2 = !show2"
           ></v-text-field>
-        </v-col>
-      </v-row>
+        </v-row>
+      </v-col>
           <v-btn class="mr-4" v-on:click="submit">Registrar</v-btn>
           <v-alert
             :value="error"
@@ -70,6 +71,7 @@
           </v-alert>
     </v-container>
   </v-form>
+</div>
 </template>
 
 <script>
@@ -112,11 +114,7 @@ export default {
       indexControl
         .registrar(this.username, this.password, this.email)
         .then( res => {
-          console.log(res.data);
-          console.log(res.message);
-          if(res.data.toString()==undefined){
-            console.log("error");
-            console.log("error");
+          if(!res){
             console.log("error");
             this.error=true;
           }else{
@@ -153,7 +151,7 @@ export default {
 }
 
 form {
-  background-color: cadetblue;
+  background-color:grey;
   width: 30em;
   height: 20em;
   margin: auto;
