@@ -59,14 +59,14 @@
           <v-btn class="mr-4" v-on:click="submit">Registrar</v-btn>
           <v-alert
             :value="errorEmail"
-            type="success"
+            type="error"
             transition="scale-transition"
           >
             El correo ya se encuentra registrado
           </v-alert>
           <v-alert
             :value="errorUser"
-            type="success"
+            type="error"
             transition="scale-transition"
           >
             El usuario ya se encuentra registrado
@@ -122,16 +122,19 @@ export default {
             this.$router.push("Home");
 
         })
-        .catch(err => console.log(err.message));
+        .catch(err => {
           if (this.err.message=="NombreUsuario must be unique"){
+            console.log("error usuario");
             this.errorUser=true;
             setTimeout(this.errorUser=false,10);
           }
           if (this.err.message=="Email must be unique"){
+            console.log("error email");
             this.errorEmail=true;
             setTimeout(this.errorEmail=false,10);
           }
-      //this.$router.push('Home')
+          });
+        //this.$router.push('Home')
     }
   }
 }
