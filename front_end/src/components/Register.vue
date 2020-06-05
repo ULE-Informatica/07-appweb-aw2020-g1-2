@@ -12,6 +12,8 @@
             :counter="50"
             label="Usuario"
             required
+                  @change="error=false"
+
           ></v-text-field>
         </v-col>
         <v-col
@@ -23,6 +25,8 @@
             :rules="emailRules"
             label="E-mail"
             required
+                  @change="error=false"
+
           ></v-text-field>
         </v-col>
         <v-col
@@ -58,57 +62,75 @@
       </v-row>
           <v-btn class="mr-4" v-on:click="submit">Registrar</v-btn>
           <v-alert
-            :value="errorEmail"
+            :value="error"
             type="error"
             transition="scale-transition"
           >
-            El correo ya se encuentra registrado
-          </v-alert>
-          <v-alert
-            :value="errorUser"
-            type="error"
-            transition="scale-transition"
-          >
-            El usuario ya se encuentra registrado
+            El usuario o el correo ya se encuentra registrado
           </v-alert>
     </v-container>
   </v-form>
 </template>
 
 <script>
-import indexControl from "../controllers/indexControl"
+var indexControl = require("./../controllers/indexControl");
 export default {
-  data () {
-    return {
-      header: 'Register',
-      username: null,
-      email: null,
-      password: null,
-      confirmedPw: null,
-      errors: []
+  data: () => ({
+    success: false,
+    error: false,
+      show: false,
+      show2: false,
+      valid: false,
+      username: '',
+      
+      usernameRules: [
+        v => !!v || 'Username is required',
+        v => v.length <= 50 || 'Username must be less than 20 characters',
+      ],
+      email: '',
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+/.test(v) || 'E-mail must be valid',
+      ],
+      password: '',
+      passwordConfirm: '',
+      passwordRules: [
+        v => !!v || 'Password is required',
+        v =>v.length >= 4 || 'Password must be valid',
+        v =>v.length <= 20 || 'Password must be less than 20 characters',
+      ]
+    }),
+  computed: {
+    passwordConfirmationRule() {
+      return () => (this.password === this.passwordConfirm) || 'Password must match'
     }
   },
   methods: {
     submit: async function() {
       console.log("Creando el usuario");
 
-      control
+      indexControl
         .registrar(this.username, this.password, this.email)
-        .then( () => {
-            console.log("Registro correcto correctas");
+        .then( res => {
+          console.log(res.data);
+          console.log(res.message);
+          if(res.data.toString()==undefined){
+            console.log("error");
+            console.log("error");
+            console.log("error");
+            this.error=true;
+          }else{
+            console.log("Registro correcto");
             this.$router.push("Home");
-
+          }            
         })
         .catch(err => {
-          if (err.message=="NombreUsuario must be unique"){
-            console.log("error usuario");
-            this.errorUser=true;
-            setTimeout(this.errorUser=false,10);
-          }
-          if (err.message=="Email must be unique"){
-            console.log("error email");
-            this.errorEmail=true;
-            setTimeout(this.errorEmail=false,10);
+          console.log(err.data);
+          if(err.data==undefined){
+            console.log("error");
+            console.log("error");
+            console.log("error");
+            this.error=true;
           }
           });
         //this.$router.push('Home')

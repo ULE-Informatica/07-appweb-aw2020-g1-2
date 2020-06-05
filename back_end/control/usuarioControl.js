@@ -56,7 +56,15 @@ function add(req, res) {
         console.log('El usuario se ha introducido correctamente');
         res.json(usuario);
     }).catch(err => {
-        res.status(404).send();
+        res.json({
+            errors: err.errors.map ((error) => {
+                console.log(error.message);
+                return {
+                    attribute: error.path,
+                    message: error.message
+                }
+            })
+        });    
     })
 }
 function remove(req, res) {
