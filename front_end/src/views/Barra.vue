@@ -45,22 +45,6 @@
 
 
 <script>
-/*
-import Home from "./views/Home.vue";
-
-export default {
-  name: "App",
-
-  components: {
-    Home
-    
-  },
-
-  data: () => ({
-    //
-  })
-};
-*/
 
 export default {
   name: "App",
