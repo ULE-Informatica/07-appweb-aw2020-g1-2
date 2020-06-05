@@ -18,7 +18,7 @@
 
       <v-toolbar-items class="hidden-xs-only" color="red darken-3">
         <v-btn
-          flat
+          
           v-for="item in menuItems"
           :key="item.title"
           :to="item.path">
@@ -27,14 +27,6 @@
         </v-btn>
       </v-toolbar-items>
 
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
 
     </v-app-bar>
 
@@ -69,7 +61,7 @@ export default {
     return {
       sidebar: false,
       menuItems: [
-          { title: 'Home', path: '/' },
+          { title: 'Index', path: '/' },
           { title: 'Registrarse', path: '/register' },
           { title: 'Login', path: '/login' }
      ]

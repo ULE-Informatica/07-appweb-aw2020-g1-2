@@ -76,41 +76,18 @@
 </template>
 
 <script>
-var control = require("./../controllers/indexControl");
-//import Popup from './Popup'
+import indexControl from "../controllers/indexControl"
 export default {
-  data: () => ({
-    success: false,
-    errorUser: false,
-    errorEmail: false,
-      show: false,
-      show2: false,
-      valid: false,
-      username: '',
-      
-      usernameRules: [
-        v => !!v || 'Username is required',
-        v => v.length <= 50 || 'Username must be less than 20 characters',
-      ],
-      email: '',
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+/.test(v) || 'E-mail must be valid',
-      ],
-      password: '',
-      passwordConfirm: '',
-      passwordRules: [
-        v => !!v || 'Password is required',
-        v =>v.length >= 4 || 'Password must be valid',
-        v =>v.length <= 20 || 'Password must be less than 20 characters',
-      ]
-    }),
-  computed: {
-    passwordConfirmationRule() {
-      return () => (this.password === this.passwordConfirm) || 'Password must match'
-    },
+  data () {
+    return {
+      header: 'Register',
+      username: null,
+      email: null,
+      password: null,
+      confirmedPw: null,
+      errors: []
+    }
   },
-  mounted: () => {},
   methods: {
     submit: async function() {
       console.log("Creando el usuario");
@@ -154,9 +131,13 @@ export default {
 }
 
 form {
+  background-color: cadetblue;
   width: 30em;
   height: 20em;
   margin: auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
   button {
     display: block;
     margin: auto;
