@@ -70,7 +70,7 @@ export default {
       sidebar: false,
       menuItems: [
           { title: 'Home', path: '/' },
-          { title: 'Registrarse', path: '/registrarse' },
+          { title: 'Registrarse', path: '/register' },
           { title: 'Login', path: '/login' }
      ]
     }

@@ -6,6 +6,7 @@
       :counter="50"
       label="Username"
       required
+      @change="error=false"
     ></v-text-field>
     <v-text-field
       v-model="password"
@@ -18,6 +19,7 @@
       hint="At least 4 characters"
       counter
       @click:append="show = !show"
+      @change="error=false"
     ></v-text-field>
 
     <v-btn class="mr-4" v-on:click="submit">Ingresar</v-btn>
@@ -63,7 +65,6 @@ export default {
         .catch(err => {
           console.log(err.message)
           this.error=true;
-            setTimeout(this.errorUser=false,10);
         });
 
       //this.$router.push('Home')
