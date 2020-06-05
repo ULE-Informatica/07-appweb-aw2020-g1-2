@@ -1,43 +1,12 @@
 <template>
-  <v-app>
-    <Barra />
-    <v-content>
-      <router-view />
-    </v-content>
-  </v-app>
-    
- 
-</template>
-
-
-
-<script>
-/*
-import Home from "./views/Home.vue";
-
-export default {
-  name: "App",
-
-  components: {
-    Home
-    
-  },
-
-  data: () => ({
-    //
-  })
-};
-*/
-
-/*
-<v-app>
+  <nav>
     <v-app-bar app color="red darken-3" dark>
       <div class="d-flex align-center">
         <v-img
           alt="Vuetify Logo"
           class="shrink mr-2"
           contain
-          src="./assets/LogoV1.png"
+          src="../assets/LogoV1.png"
           transition="scale-transition"
           width="200"
         />
@@ -63,24 +32,47 @@ export default {
     
 
 
-   <v-content>
-      <router-view />
-    </v-content>
+   
 
-    <v-footer height="50px" color="red darken-3" dark>
+    <v-footer height="50px" color="red darken-3" dark absolute>
         
     </v-footer>
 
- </v-app>
-*/
-import Barra from "@/views/Barra.vue"
+  </nav>
+    
+ 
+</template>
+
+
+<script>
+/*
+import Home from "./views/Home.vue";
+
 export default {
   name: "App",
+
   components: {
-      Barra
-    },
+    Home
+    
+  },
+
+  data: () => ({
+    //
+  })
+};
+*/
+
+export default {
+  name: "App",
+  
   data(){
     return {
+      sidebar: false,
+      menuItems: [
+          { title: 'Index', path: '/' },
+          { title: 'Login', path: '/login' },
+          { title: 'Registrarse', path: '/register' }
+     ]
     }
   },
 };
