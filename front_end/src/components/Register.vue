@@ -1,28 +1,78 @@
 <template>
-  <div>
-    <h1>{{ header }}</h1>
-
-    <div class="error" v-if="errors.length">
-      <p>
-        <b>Please correct the following error(s):</b>
-        <ul>
-          <li v-for="(error, i) in errors" :key="i">{{ error }}</li>
-        </ul>
-      </p>
-    </div>
-
-    <form @submit.prevent="createManager(username, password, email)">
-      <label class="form" for='username'>Username:</label>
-      <input class="form" style="background-color: white" type="text" v-model="username">
-      <label class="form" for='email'>Email:</label>
-      <input class="form" style="background-color: white" type="text" v-model="email">
-      <label class="form" for='password'>Password:</label>
-      <input class="form" style="background-color: white" type="text" v-model="password">
-      <label class="form" for='confirm password'>Confirm Password:</label>
-      <input class="form" style="background-color: white" type="text" v-model="confirmedPw">
-      <button type="submit" style="background-color: green">Submit</button>
-    </form>
-  </div>
+  <v-form v-model="valid">
+    <v-container>
+      <v-row>
+        <v-col
+          cols="12"
+          md="4"
+        >
+          <v-text-field
+            v-model="username"
+            :rules="usernameRules"
+            :counter="50"
+            label="Usuario"
+            required
+          ></v-text-field>
+        </v-col>
+        <v-col
+          cols="12"
+          md="4"
+        >
+          <v-text-field
+            v-model="email"
+            :rules="emailRules"
+            label="E-mail"
+            required
+          ></v-text-field>
+        </v-col>
+        <v-col
+          cols="12"
+          md="4"
+        >
+          <v-text-field
+            v-model="password"
+            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+            :rules="passwordRules"
+            :type="show ? 'text' : 'password'"
+            :counter="4"
+            label="Contraseña"
+            required
+            @click:append="show = !show"
+          ></v-text-field>
+        </v-col>
+        <v-col
+          cols="12"
+          md="4"
+        >
+          <v-text-field
+            v-model="passwordConfirm"
+            :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+            :rules="[passwordRules, passwordConfirmationRule]"
+            :type="show2 ? 'text' : 'password'"
+            :counter="4"
+            label="Repita contraseña"
+            required
+            @click:append="show2 = !show2"
+          ></v-text-field>
+        </v-col>
+      </v-row>
+          <v-btn class="mr-4" v-on:click="submit">Registrar</v-btn>
+          <v-alert
+            :value="errorEmail"
+            type="error"
+            transition="scale-transition"
+          >
+            El correo ya se encuentra registrado
+          </v-alert>
+          <v-alert
+            :value="errorUser"
+            type="error"
+            transition="scale-transition"
+          >
+            El usuario ya se encuentra registrado
+          </v-alert>
+    </v-container>
+  </v-form>
 </template>
 
 <script>
@@ -39,30 +89,29 @@ export default {
     }
   },
   methods: {
-    async createManager (username, password, email) { 
-      this.errors = []
-      if (!this.username) {
-        this.errors.push('Name required.')
-        return
-      }
-      if (!this.email) {
-        this.errors.push('Email required.')
-        return
-      }
-      if (!this.password) {
-        this.errors.push('Password required.')
-        return
-      }
-      if (!this.confirmedPw || this.confirmedPw !== this.password) {
-        this.errors.push('Please enter the same password again.')
-        return
-      }
-      try {
-        await indexControl.registrar (username, password, email)
-        alert('Manager has successfully registered')
-      } catch (err) {
-        alert(err)
-      }
+    submit: async function() {
+      console.log("Creando el usuario");
+
+      control
+        .registrar(this.username, this.password, this.email)
+        .then( () => {
+            console.log("Registro correcto correctas");
+            this.$router.push("Home");
+
+        })
+        .catch(err => {
+          if (err.message=="NombreUsuario must be unique"){
+            console.log("error usuario");
+            this.errorUser=true;
+            setTimeout(this.errorUser=false,10);
+          }
+          if (err.message=="Email must be unique"){
+            console.log("error email");
+            this.errorEmail=true;
+            setTimeout(this.errorEmail=false,10);
+          }
+          });
+        //this.$router.push('Home')
     }
   }
 }

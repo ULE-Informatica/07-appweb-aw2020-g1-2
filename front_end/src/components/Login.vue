@@ -21,6 +21,13 @@
     ></v-text-field>
 
     <v-btn class="mr-4" v-on:click="submit">Ingresar</v-btn>
+    <v-alert
+            :value="error"
+            type="error"
+            transition="scale-transition"
+          >
+            Usuario o contraseña invalidos
+          </v-alert>
   </v-form>
 </template>
 
@@ -30,6 +37,7 @@ var control = require("./../controllers/indexControl");
 export default {
   data() {
     return {
+      error: false,
       header: "Login",
       username: "",
       show: false,
@@ -52,7 +60,11 @@ export default {
             this.$router.push("Home");
 
         })
-        .catch(err => console.log(err.message));
+        .catch(err => {
+          console.log(err.message)
+          this.error=true;
+            setTimeout(this.errorUser=false,10);
+        });
 
       //this.$router.push('Home')
     }
