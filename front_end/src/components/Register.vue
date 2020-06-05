@@ -57,14 +57,32 @@
         </v-col>
       </v-row>
           <v-btn class="mr-4" v-on:click="submit">Registrar</v-btn>
+          <v-alert
+            :value="errorEmail"
+            type="success"
+            transition="scale-transition"
+          >
+            El correo ya se encuentra registrado
+          </v-alert>
+          <v-alert
+            :value="errorUser"
+            type="success"
+            transition="scale-transition"
+          >
+            El usuario ya se encuentra registrado
+          </v-alert>
     </v-container>
   </v-form>
 </template>
 
 <script>
 var control = require("./../controllers/indexControl");
+//import Popup from './Popup'
 export default {
   data: () => ({
+    success: false,
+    errorUser: false,
+    errorEmail: false,
       show: false,
       show2: false,
       valid: false,
@@ -105,7 +123,14 @@ export default {
 
         })
         .catch(err => console.log(err.message));
-
+          if (this.err.message=="NombreUsuario must be unique"){
+            this.errorUser=true;
+            setTimeout(this.errorUser=false,10);
+          }
+          if (this.err.message=="Email must be unique"){
+            this.errorEmail=true;
+            setTimeout(this.errorEmail=false,10);
+          }
       //this.$router.push('Home')
     }
   }
