@@ -1,112 +1,68 @@
 <template>
-  <v-form v-model="valid">
-    <v-container>
-      <v-row>
-        <v-col
-          cols="12"
-          md="4"
-        >
-          <v-text-field
-            v-model="username"
-            :rules="usernameRules"
-            :counter="50"
-            label="Usuario"
-            required
-          ></v-text-field>
-        </v-col>
-        <v-col
-          cols="12"
-          md="4"
-        >
-          <v-text-field
-            v-model="email"
-            :rules="emailRules"
-            label="E-mail"
-            required
-          ></v-text-field>
-        </v-col>
-        <v-col
-          cols="12"
-          md="4"
-        >
-          <v-text-field
-            v-model="password"
-            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="passwordRules"
-            :type="show ? 'text' : 'password'"
-            :counter="4"
-            label="Contraseña"
-            required
-            @click:append="show = !show"
-          ></v-text-field>
-        </v-col>
-        <v-col
-          cols="12"
-          md="4"
-        >
-          <v-text-field
-            v-model="passwordConfirm"
-            :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="[passwordRules, passwordConfirmationRule]"
-            :type="show2 ? 'text' : 'password'"
-            :counter="4"
-            label="Repita contraseña"
-            required
-            @click:append="show2 = !show2"
-          ></v-text-field>
-        </v-col>
-      </v-row>
-          <v-btn class="mr-4" v-on:click="submit">Registrar</v-btn>
-    </v-container>
-  </v-form>
+  <div>
+    <h1>{{ header }}</h1>
+
+    <div class="error" v-if="errors.length">
+      <p>
+        <b>Please correct the following error(s):</b>
+        <ul>
+          <li v-for="(error, i) in errors" :key="i">{{ error }}</li>
+        </ul>
+      </p>
+    </div>
+
+    <form @submit.prevent="createManager(username, password, email)">
+      <label class="form" for='username'>Username:</label>
+      <input class="form" style="background-color: white" type="text" v-model="username">
+      <label class="form" for='email'>Email:</label>
+      <input class="form" style="background-color: white" type="text" v-model="email">
+      <label class="form" for='password'>Password:</label>
+      <input class="form" style="background-color: white" type="text" v-model="password">
+      <label class="form" for='confirm password'>Confirm Password:</label>
+      <input class="form" style="background-color: white" type="text" v-model="confirmedPw">
+      <button type="submit" style="background-color: green">Submit</button>
+    </form>
+  </div>
 </template>
 
 <script>
-var control = require("./../controllers/indexControl");
+import indexControl from "../controllers/indexControl"
 export default {
-  data: () => ({
-      show: false,
-      show2: false,
-      valid: false,
-      username: '',
-      
-      usernameRules: [
-        v => !!v || 'Username is required',
-        v => v.length <= 50 || 'Username must be less than 20 characters',
-      ],
-      email: '',
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+/.test(v) || 'E-mail must be valid',
-      ],
-      password: '',
-      passwordConfirm: '',
-      passwordRules: [
-        v => !!v || 'Password is required',
-        v =>v.length >= 4 || 'Password must be valid',
-        v =>v.length <= 20 || 'Password must be less than 20 characters',
-      ]
-    }),
-  computed: {
-    passwordConfirmationRule() {
-      return () => (this.password === this.passwordConfirm) || 'Password must match'
-    },
+  data () {
+    return {
+      header: 'Register',
+      username: null,
+      email: null,
+      password: null,
+      confirmedPw: null,
+      errors: []
+    }
   },
-  mounted: () => {},
   methods: {
-    submit: async function() {
-      console.log("Creando el usuario");
-
-      control
-        .registrar(this.username, this.password, this.email)
-        .then( () => {
-            console.log("Registro correcto correctas");
-            this.$router.push("Home");
-
-        })
-        .catch(err => console.log(err.message));
-
-      //this.$router.push('Home')
+    async createManager (username, password, email) { 
+      this.errors = []
+      if (!this.username) {
+        this.errors.push('Name required.')
+        return
+      }
+      if (!this.email) {
+        this.errors.push('Email required.')
+        return
+      }
+      if (!this.password) {
+        this.errors.push('Password required.')
+        return
+      }
+      if (!this.confirmedPw || this.confirmedPw !== this.password) {
+        this.errors.push('Please enter the same password again.')
+        return
+      }
+      try {
+        await indexControl.registrar (username, password, email)
+        alert('Manager has successfully registered')
+      } catch (err) {
+        alert(err)
+      }
     }
   }
 }
@@ -126,9 +82,13 @@ export default {
 }
 
 form {
+  background-color: cadetblue;
   width: 30em;
   height: 20em;
   margin: auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
   button {
     display: block;
     margin: auto;

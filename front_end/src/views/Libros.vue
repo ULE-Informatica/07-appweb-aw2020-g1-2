@@ -3,6 +3,30 @@
     <div class="center">
       <Botones></Botones>
     </div>
+    <div> 
+      <v-alert
+      type = "success"
+      v-model="alert1"
+      color="green"
+      dark
+      border="top"
+      transition="scale-transition"
+      dismissible
+    > El libro se ha agregado a la lista
+    </v-alert>
+    </div>
+    <div> 
+      <v-alert
+      type = "warning"
+      v-model="alert2"
+      color="orange"
+      dark
+      border="top"
+      transition="scale-transition"
+      dismissible
+    > EL libro ya está en la lista
+    </v-alert>
+    </div>
     <v-data-table :headers="headers" :items="libros" sort-by="Titulo" class="elevation-1">
       <img alt="Vue logo" src="../assets/LogoV1.png" />
 
@@ -43,6 +67,8 @@ export default {
     },
     data () {
         return {
+          alert1: false,
+          alert2: false,
             //userName: Vue.prototype.$usuario.nombreUsuario,
             //userID: Vue.prototype.$usuario.idUsuario,
             headers: [
@@ -89,23 +115,31 @@ export default {
       UsuarioControl
         .addLeido(1, item.idLibro)
         .then(res => {
+          
           console.log("Libro añadido de la lista con exito");
-          console.log(res.message);         
+          console.log(res.message);      
+
+            this.showAlert(1);
+          
         })
         .catch(err => {
+          this.showAlert(-1);
           console.log(err.message);
         });
     },
     favorito(item) {
       console.log("Añadiendo libro de la lista de favoritos");
-      console.log(item.idLibro)
+      console.log(item.idLibro) 
       UsuarioControl
         .addFavorito(1, item.idLibro)
         .then(res => {
           console.log("Libro añadido de la lista con exito");
           console.log(res.message);     
+            this.showAlert(1);
+          
         })
         .catch(err => {
+          this.showAlert(-1);
           console.log(err.message);
         });
     },
@@ -115,11 +149,26 @@ export default {
         .addLista(1, item.idLibro, /*Vue.prototype.$usuario.idUsuario*/)
         .then(res => {
           console.log("Libro Añadido de la lista con exito");
-          console.log(res.message);       
+          console.log(res.message);  
+          console.log (res.data);  
+          console.log(res)
+          this.showAlert(1);
         })
         .catch(err => {
+          this.showAlert(-1);
           console.log(err.message);
         });
+    },
+    showAlert(i) {
+      if (i==1) {
+        //Success
+        this.alert1=true
+        setTimeout(() => this.alert1 = false, 5000);
+      } else if (i==-1) {
+        //Fail
+        this.alert2=true
+        setTimeout(() => this.alert2 = false, 5000);
+      } 
     }
 
   }

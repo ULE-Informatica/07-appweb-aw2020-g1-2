@@ -7,6 +7,7 @@ import Favoritos from "../views/Favoritos.vue"
 import Leidos from "../views/Leidos.vue"
 import Lista from "../views/MiLista.vue"
 
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -28,9 +29,9 @@ const routes = [
   },
   {
     path: "/register",
-    name: "Register",
+    name: "Registro",
     component: () =>
-      import(/* webpackChunkName: "register" */ "@/components/Register.vue")
+      import(/* webpackChunkName: "login" */ "@/components/Register.vue")
   },
    {
     path: "/about",

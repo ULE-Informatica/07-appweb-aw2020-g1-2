@@ -51,17 +51,9 @@ function add(req, res) {
         fecha: new Date()
     }).then((lista) => {
         console.log('La lista se ha introducido correctamente');
-        response.json(lista);
+        res.json(lista);
     }).catch(err => {
-        res.json({
-            errors: err.errors.map ((error) => {
-                console.log(error.message);
-                return {
-                    attribute: error.path,
-                    message: error.message
-                }
-            })
-        });
+        res.status(404).send();
     })
 }
 function remove(req, res) {
