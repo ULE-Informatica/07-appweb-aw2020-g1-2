@@ -1,5 +1,5 @@
 <template>
-<div style="margin-top: 20px">
+<div style="margin-top: 20px" >
   <v-form v-model="valid">
     <v-container>
       <v-col>
@@ -61,7 +61,7 @@
           ></v-text-field>
         </v-row>
       </v-col>
-          <v-btn class="mr-4" v-on:click="submit">Registrar</v-btn>
+          <v-btn class="mr-4" color="red accent-3" v-on:click="submit">Registrar</v-btn>
           <v-alert
             :value="error"
             type="error"
@@ -135,6 +135,7 @@ export default {
     }
   }
 }
+
 </script>
 
 <style scoped lang='scss'>
@@ -151,9 +152,9 @@ export default {
 }
 
 form {
-  background-color:grey;
+  background-color:lightcoral;
   width: 30em;
-  height: 20em;
+  height: 22em;
   margin: auto;
   padding: 10px;
   border: 1px solid #ccc;
@@ -161,6 +162,7 @@ form {
   button {
     display: block;
     margin: auto;
+    margin-top: 30px;
     width: 10em;
   }
   .form {
@@ -174,5 +176,6 @@ form {
 h1 {
   font-size: 3em;
 }
+
 
 </style>

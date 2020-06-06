@@ -1,5 +1,5 @@
 <template>
-  <v-form>
+  <v-form style="margin-top: 20px">
     <v-text-field
       v-model="username"
       :rules="[rules.required, rules.min]"
@@ -22,7 +22,7 @@
       @change="error=false"
     ></v-text-field>
 
-    <v-btn class="mr-4" v-on:click="submit">Ingresar</v-btn>
+    <v-btn class="mr-4" color="red accent-3" v-on:click="submit">Ingresar</v-btn>
     <v-alert
             :value="error"
             type="error"
@@ -109,7 +109,7 @@ export default {
 h1 {
   font-size: 3em;
 }
-
+/*
 form {
   width: 30em;
   height: 20em;
@@ -125,5 +125,29 @@ form {
     display: inline-block;
     line-height: 1.5em;
   }
+}
+*/
+
+form {
+  background-color:lightcoral;
+  width: 30em;
+  height: 12em;
+  margin: auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  button {
+    display: block;
+    margin: auto;
+    margin-top: 50px;
+    width: 10em;
+  }
+  .form {
+    margin-bottom: 1em;
+    width: 10em;
+    display: inline-block;
+    line-height: 1.5em;
+  }
+  
 }
 </style>

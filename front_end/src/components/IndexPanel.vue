@@ -1,11 +1,36 @@
 <template>
+<v-expansion-panel class="navegacion-item" hover>
   <div class="indexPanel">
-    <router-link to="/login" class="navegacion-item">Login</router-link>
-    <router-link to="/register" class="navegacion-item">Register</router-link>
+    
+      <v-btn color="red darken-3" class="navegacion-item" centered
+          
+          v-for="item in menuItems"
+          :key="item.title"
+          :to="item.path">
+          
+          
+          {{ item.title }}
+          
+        </v-btn>
+    
   </div>
+</v-expansion-panel>
 </template>
 
 <script>
+export default {
+ name: "App",
+  data(){
+    return {
+      sidebar: false,
+      menuItems: [
+          { title: 'Login', path: '/login'},
+          { title: 'Registrarse', path: '/register' },
+          
+     ]
+    }
+  },
+}
 </script>
 
 <style scoped lang="scss">
@@ -14,8 +39,12 @@ ul {
   padding: 0;
 }
 .navegacion-item {
-  display: inline-block;
+  
   margin: 10px 10px;
+  width: 200px;
+  background-color: red;
+  text-align: center;
+  align-items: center;
   &:hover {
     cursor: pointer;
   }
