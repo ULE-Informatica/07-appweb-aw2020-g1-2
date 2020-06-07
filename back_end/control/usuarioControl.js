@@ -23,6 +23,13 @@ Favorito.belongsTo(Usuario, {foreignKey: 'idUsuario'})
 Usuario.hasMany(Leido, {foreignKey: 'idUsuario'})
 Leido.belongsTo(Usuario, {foreignKey: 'idUsuario'})
 
+Usuario.sync({ alter: true });
+Libro.sync({ alter: true });
+Lista.sync({ alter: true });
+Favorito.sync({ alter: true });
+Leido.sync({ alter: true });
+console.log("All models were synchronized successfully.");
+
 //FUNCIONES
 
 function getAll(req, res) {
@@ -56,15 +63,7 @@ function add(req, res) {
         console.log('El usuario se ha introducido correctamente');
         res.json(usuario);
     }).catch(err => {
-        res.json({
-            errors: err.errors.map ((error) => {
-                console.log(error.message);
-                return {
-                    attribute: error.path,
-                    message: error.message
-                }
-            })
-        });    
+        res.status(404).send();
     })
 }
 function remove(req, res) {
