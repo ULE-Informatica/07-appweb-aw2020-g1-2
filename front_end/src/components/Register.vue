@@ -1,10 +1,6 @@
 <template>
 <div class="fondo">
-  <div class="d-flex align-center">
-      <v-img class="center">
-        <img alt="Vue logo" src="../assets/LogoV1.png" class="imagen" width="400px" border-radious="50%"/>
-      </v-img>
-   </div>
+
 <div style="margin-top: 20px" >
   <v-form v-model="valid">
     <v-container>
@@ -126,7 +122,7 @@ export default {
             this.error=true;
           }else{
             console.log("Registro correcto");
-            this.$router.push("Home");
+            this.$router.push("home");
           }            
         })
         .catch(err => {

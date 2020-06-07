@@ -1,10 +1,6 @@
 <template>
  <div class="fondo">
-   <div class="d-flex align-center">
-      <v-img class="center">
-        <img alt="Vue logo" src="../assets/LogoV1.png" class="imagen" width="400px" border-radious="50%"/>
-      </v-img>
-   </div>
+
   <div class="login-box">
   <v-form style="margin-top: 20px" class="login-box">
     <v-text-field

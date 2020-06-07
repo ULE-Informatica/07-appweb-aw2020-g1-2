@@ -47,6 +47,7 @@
 import usuarioControl from "../controllers/usuarioControl";
 import listaControl from "../controllers/favoritoControl";
 import Botones from "../components/Botones"
+import Vue from "vue";
 export default {
   components: {
     Botones
@@ -94,24 +95,28 @@ export default {
   },
 
   mounted: async function() {
+    if (!Vue.prototype.$usuario) {
+      console.log("hay que iniciar sesión");
+      this.$router.push("/login");
+    } else {
     console.log("Pidiendo todos los libros a la base de datos");
     //this.libros=LibroControl.getAll();
 
     usuarioControl
-      .getFavoritos(1)
+      .getFavoritos(Vue.prototype.$usuario.idUsuario)
       .then(res => {
         this.libros = res.data;
       })
       .catch(err => {
         console.log(err.message);
       });
+    }
   },
   watch: {
     dialog(val) {
       val || this.close();
     }
   },
-
   methods: {
     deleteItem(item) {
       console.log("Eliminando libro de la lista de favoritos");
@@ -159,16 +164,14 @@ export default {
 </script>
 
 <style scoped>
-  .center {
-    background-color: bisque;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .inside {
-
-    background-color: aquamarine;
-    width: 300px;
-  }
-
+.center {
+  background-color: bisque;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.inside {
+  background-color: aquamarine;
+  width: 300px;
+}
 </style>

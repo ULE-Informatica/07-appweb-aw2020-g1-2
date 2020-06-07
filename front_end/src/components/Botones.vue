@@ -59,6 +59,7 @@ export default {
     return {
       sidebar: false,
       menuItems: [
+          { title: 'Home', path:'/home'},
           { title: 'Libros', path: '/books'},
           { title: 'Lista', path: '/myList' },
           { title: 'Favoritos', path: '/favs' },

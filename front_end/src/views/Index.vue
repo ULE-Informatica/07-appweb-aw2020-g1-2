@@ -16,12 +16,16 @@
 <script>
 // @ is an alias to /src
 import Nav from "@/components/IndexPanel.vue";
-//import Vue from "vue";
+import Vue from "vue";
 export default {
   name: "Index",
   components: {
     Nav
   },
+  mounted: function () {
+    
+    Vue.prototype.$usuario=null;
+  }
 };
 </script>
 

@@ -44,7 +44,8 @@
 <script>
 import usuarioControl from "../controllers/usuarioControl";
 import listaControl from "../controllers/leidoControl";
-import Botones from "../components/Botones"
+import Botones from "../components/Botones";
+import Vue from "vue";
 export default {
   components: {
     Botones
@@ -63,10 +64,11 @@ export default {
       { text: "Idioma", value: "libro.idioma" },
       { text: "Comentario", value: "comentario" },
       { text: "Fecha", value: "fecha" },
-      { text: "Nota", value: "nota" },
+      //{ text: "Nota", value: "nota" },
       { text: "Actions", value: "actions", sortable: false }
     ],
     libros: [],
+    notas: [1,2,3,4,5,6,7,8,9,10],
     editedIndex: -1,
     editedItem: {
       Titulo: "",
@@ -94,17 +96,22 @@ export default {
     }
   },
   mounted: async function() {
-    console.log("Pidiendo todos los libros a la base de datos");
-    //this.libros=LibroControl.getAll();
+    if (!Vue.prototype.$usuario) {
+      console.log("hay que iniciar sesión");
+      this.$router.push("/login");
+    } else {
+      console.log("Pidiendo todos los libros a la base de datos");
+      //this.libros=LibroControl.getAll();
 
-    usuarioControl
-      .getLeidos(1)
-      .then(res => {
-        this.libros = res.data;
-      })
-      .catch(err => {
-        console.log(err.message);
-      });
+      usuarioControl
+        .getLeidos(Vue.prototype.$usuario.idUsuario)
+        .then(res => {
+          this.libros = res.data;
+        })
+        .catch(err => {
+          console.log(err.message);
+        });
+    }
   },
   watch: {
     dialog(val) {
@@ -159,16 +166,14 @@ export default {
 </script>
 
 <style scoped>
-  .center {
-    background-color: bisque;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .inside {
-
-    background-color: aquamarine;
-    width: 300px;
-  }
-
+.center {
+  background-color: bisque;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.inside {
+  background-color: aquamarine;
+  width: 300px;
+}
 </style>

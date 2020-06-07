@@ -13,7 +13,7 @@
           <v-spacer></v-spacer>
         </v-toolbar>
       </template>
-     <template v-slot:item.comentario="{ item }">
+      <template v-slot:item.comentario="{ item }">
         <v-edit-dialog
           :return-value.sync="item.comentario"
           lazy
@@ -46,7 +46,8 @@
 <script>
 import usuarioControl from "../controllers/usuarioControl";
 import listaControl from "../controllers/listaControl";
-import Botones from "../components/Botones"
+import Botones from "../components/Botones";
+import Vue from "vue";
 export default {
   components: {
     Botones
@@ -93,17 +94,22 @@ export default {
     }
   },
   mounted: async function() {
-    console.log("Pidiendo todos los libros a la base de datos");
-    //this.libros=LibroControl.getAll();
+    if (!Vue.prototype.$usuario) {
+      console.log("hay que iniciar sesión");
+      this.$router.push("/login");
+    } else {
+      console.log("Pidiendo todos los libros a la base de datos");
+      //this.libros=LibroControl.getAll();
 
-    usuarioControl
-      .getLista(1)
-      .then(res => {
-        this.libros = res.data;
-      })
-      .catch(err => {
-        console.log(err.message);
-      });
+      usuarioControl
+        .getLista(Vue.prototype.$usuario.idUsuario)
+        .then(res => {
+          this.libros = res.data;
+        })
+        .catch(err => {
+          console.log(err.message);
+        });
+    }
   },
   watch: {
     dialog(val) {
@@ -158,16 +164,14 @@ export default {
 </script>
 
 <style scoped>
-  .center {
-    background-color: bisque;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .inside {
-
-    background-color: aquamarine;
-    width: 300px;
-  }
-
+.center {
+  background-color: bisque;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.inside {
+  background-color: aquamarine;
+  width: 300px;
+}
 </style>

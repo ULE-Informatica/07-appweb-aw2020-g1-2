@@ -8,6 +8,7 @@ function edit(item) {
             idLibro: item.idLibro,
             idUsuario:item.idUsuario,
             comentario:item.comentario,
+            nota:item.nota,
             fecha: item.fecha
         })
         .then(res => {

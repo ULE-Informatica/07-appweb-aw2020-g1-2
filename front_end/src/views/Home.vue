@@ -24,8 +24,16 @@ export default {
   },
   data() {
     return {     
-      userName: Vue.prototype.$usuario.nombreUsuario
+      userName: null
     };
+  },
+  mounted: function () {
+    if (!Vue.prototype.$usuario) {
+      console.log("hay que iniciar sesión")
+      this.$router.push("/login");
+    } else {
+      this.userName= Vue.prototype.$usuario.nombreUsuario
+    }
   }
 };
 </script>
