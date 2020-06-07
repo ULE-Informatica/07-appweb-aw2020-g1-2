@@ -3,7 +3,7 @@
     <div class="center">
       <Botones></Botones>
     </div>
-    <v-data-table :headers="headers" :items="libros" sort-by="Titulo" class="elevation-1">
+    <v-data-table :headers="headers" :items="libros" class="elevation-1">
       <img alt="Vue logo" src="../assets/LogoV1.png" />
 
       <template v-slot:top>
@@ -58,7 +58,6 @@ export default {
       {
         text: "Titulo",
         align: "start",
-        sortable: false,
         value: "libro.titulo"
       },
       { text: "Autor", value: "libro.autor" },

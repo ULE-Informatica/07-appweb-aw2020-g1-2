@@ -25,7 +25,7 @@
         dismissible
       >EL libro ya está en la lista</v-alert>
     </div>
-    <v-data-table :headers="headers" :items="libros" sort-by="Titulo" class="elevation-1">
+    <v-data-table :headers="headers" :items="libros" class="elevation-1">
       <img alt="Vue logo" src="../assets/LogoV1.png" />
 
       <template v-slot:top>

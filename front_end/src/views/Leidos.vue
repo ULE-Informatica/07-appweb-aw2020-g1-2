@@ -3,7 +3,7 @@
     <div class="center">
       <Botones></Botones>
     </div>
-    <v-data-table :headers="headers" :items="libros" sort-by="Titulo" class="elevation-1">
+    <v-data-table :headers="headers" :items="libros" class="elevation-1">
       <template v-slot:top>
         <v-toolbar flat color="white">
           <v-toolbar-title>Libros leídos</v-toolbar-title>
@@ -56,7 +56,6 @@ export default {
       {
         text: "Titulo",
         align: "start",
-        sortable: false,
         value: "libro.titulo"
       },
       { text: "Autor", value: "libro.autor" },
