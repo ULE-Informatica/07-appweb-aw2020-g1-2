@@ -1,4 +1,10 @@
 <template>
+<div class="fondo">
+  <div class="d-flex align-center">
+      <v-img class="center">
+        <img alt="Vue logo" src="../assets/LogoV1.png" class="imagen" width="400px" border-radious="50%"/>
+      </v-img>
+   </div>
 <div style="margin-top: 20px" >
   <v-form v-model="valid">
     <v-container>
@@ -61,7 +67,7 @@
           ></v-text-field>
         </v-row>
       </v-col>
-          <v-btn class="mr-4" color="red accent-3" v-on:click="submit">Registrar</v-btn>
+          <v-btn rounded class="mr-4" color="red darken-3" v-on:click="submit">Registrar</v-btn>
           <v-alert
             :value="error"
             type="error"
@@ -71,6 +77,7 @@
           </v-alert>
     </v-container>
   </v-form>
+</div>
 </div>
 </template>
 
@@ -151,18 +158,26 @@ export default {
   }
 }
 
+.fondo{
+    background: lightcoral;
+    height: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
 form {
-  background-color:lightcoral;
+  background-color: gray;
   width: 30em;
   height: 22em;
   margin: auto;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 2px solid black;
   border-radius: 4px;
   button {
     display: block;
     margin: auto;
-    margin-top: 30px;
+    margin-top: 38px;
     width: 10em;
   }
   .form {
@@ -176,6 +191,12 @@ form {
 h1 {
   font-size: 3em;
 }
+
+.imagen{
+    display: block; 
+    margin-left: auto; 
+    margin-right: auto;
+  }
 
 
 </style>

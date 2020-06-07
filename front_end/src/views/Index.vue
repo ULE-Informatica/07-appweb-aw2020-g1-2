@@ -49,5 +49,9 @@ export default {
     display: flex;
     flex-direction: column;
   }
+  h3{
+    margin: 10px;
+    margin-top: 20px;
+  }
 
 </style>

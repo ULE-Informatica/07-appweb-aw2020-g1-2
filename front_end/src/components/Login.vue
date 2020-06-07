@@ -1,5 +1,12 @@
 <template>
-  <v-form style="margin-top: 20px">
+ <div class="fondo">
+   <div class="d-flex align-center">
+      <v-img class="center">
+        <img alt="Vue logo" src="../assets/LogoV1.png" class="imagen" width="400px" border-radious="50%"/>
+      </v-img>
+   </div>
+  <div class="login-box">
+  <v-form style="margin-top: 20px" class="login-box">
     <v-text-field
       v-model="username"
       :rules="[rules.required, rules.min]"
@@ -22,7 +29,7 @@
       @change="error=false"
     ></v-text-field>
 
-    <v-btn class="mr-4" color="red accent-3" v-on:click="submit">Ingresar</v-btn>
+    <v-btn rounded class="mr-4" color="red darken-3" v-on:click="submit">Ingresar</v-btn>
     <v-alert
             :value="error"
             type="error"
@@ -31,6 +38,8 @@
             Usuario o contraseña invalidos
           </v-alert>
   </v-form>
+  </div>
+ </div>
 </template>
 
 <script>
@@ -127,14 +136,26 @@ form {
   }
 }
 */
-
+.fondo{
+    background: lightcoral;
+    height: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+.imagen{
+    display: block; 
+    margin-left: auto; 
+    margin-right: auto;
+  }
 form {
-  background-color:lightcoral;
+  background-color: gray;
   width: 30em;
   height: 12em;
   margin: auto;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 2px solid black;
+  
   border-radius: 4px;
   button {
     display: block;
@@ -148,6 +169,8 @@ form {
     display: inline-block;
     line-height: 1.5em;
   }
+  /////////////////////////////////////////////////////////
   
+///////////////////////////////////////////////
 }
 </style>
