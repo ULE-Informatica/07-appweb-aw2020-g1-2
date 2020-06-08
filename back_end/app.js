@@ -28,7 +28,6 @@ app.get('/', function (req, res) {
 
 app.listen(3000, function() {
     console.log('Aplicación escuchando en el puerto 3000')
-    console.log("All models were synchronized successfully.");
 });
 
 module.exports = app;
