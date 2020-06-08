@@ -1,9 +1,11 @@
 //var  Vue = require ("vue").default;
 var axios = require('axios');
+var ip = require('./constantes')
+
 
 function edit(item) {  
     const promise = new Promise (function (resolve, reject) {
-        axios.post('http://localhost:3000/data/lista/'+item.id, {
+        axios.post('http://'+ ip +':3000/data/lista/'+item.id, {
             id: item.id,
             idLibro: item.idLibro,
             idUsuario:item.idUsuario,
@@ -22,9 +24,9 @@ function edit(item) {
 }
 
 function remove(id) {  
-    console.log('delete a http://localhost:3000/data/lista/'+id)
+    console.log('delete a http://'+ ip +':3000/data/lista/'+id)
     const promise = new Promise (function (resolve, reject) {
-        axios.delete('http://localhost:3000/data/lista/'+id)
+        axios.delete('http://'+ ip +':3000/data/lista/'+id)
         .then(res => {
             console.log(res.data);
             resolve(res);

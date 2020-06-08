@@ -165,11 +165,11 @@ export default {
       if (i == 1) {
         //Success
         this.alert1 = true;
-        setTimeout(() => (this.alert1 = false), 5000);
+        setTimeout(() => (this.alert1 = false), 2000);
       } else if (i == -1) {
         //Fail
         this.alert2 = true;
-        setTimeout(() => (this.alert2 = false), 5000);
+        setTimeout(() => (this.alert2 = false), 2000);
       }
     }
   }

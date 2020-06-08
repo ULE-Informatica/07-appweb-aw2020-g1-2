@@ -1,4 +1,5 @@
 var Vue = require("vue").default;
+var ip = require('./constantes')
 var axios = require('axios');
 
 
@@ -6,7 +7,7 @@ function verificar(userName, password) {
     console.log(userName);
     console.log(password);
     const promise = new Promise(function (resolve, reject) {
-        axios.post('http://localhost:3000/data/authentication', {
+        axios.post('http://'+ ip +':3000/data/authentication', {
             nombreUsuario: userName,
             contrasena: password,
         }).then(res => {
@@ -27,7 +28,7 @@ function verificar(userName, password) {
 
 function registrar(userName, password, email) {
     const promise = new Promise(function (resolve, reject) {
-        axios.post('http://localhost:3000/data/usuarios', {
+        axios.post('http://'+ ip +':3000/data/usuarios', {
             nombreUsuario: userName,
             contrasena: password,
             email: email

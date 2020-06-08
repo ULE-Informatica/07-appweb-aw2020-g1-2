@@ -1,9 +1,10 @@
 //var  Vue = require ("vue").default;
 var axios = require('axios');
+var ip = require('./constantes')
 
 function getAll() {  
     const promise = new Promise (function (resolve, reject) {
-        axios.get('http://localhost:3000/data/libros')
+        axios.get('http://'+ ip +':3000/data/libros')
         .then(res => {
             console.log(res.data);
             resolve(res);
@@ -17,7 +18,7 @@ function getAll() {
 
 function getBook(id) {  
     const promise = new Promise (function (resolve, reject) {
-        axios.get('http://localhost:3000/data/libros/'+id)
+        axios.get('http://'+ ip +':3000/data/libros/'+id)
         .then(res => {
             console.log(res.data);
             resolve(res);

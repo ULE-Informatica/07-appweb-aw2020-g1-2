@@ -23,13 +23,14 @@ Favorito.belongsTo(Usuario, {foreignKey: 'idUsuario'})
 Usuario.hasMany(Leido, {foreignKey: 'idUsuario'})
 Leido.belongsTo(Usuario, {foreignKey: 'idUsuario'})
 
+/*
 Usuario.sync({ alter: true });
 Libro.sync({ alter: true });
 Lista.sync({ alter: true });
 Favorito.sync({ alter: true });
 Leido.sync({ alter: true });
 console.log("All models were synchronized successfully.");
-
+*/
 //FUNCIONES
 
 function getAll(req, res) {
